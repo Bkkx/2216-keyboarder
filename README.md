@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # 2216-keyboarder
 ## Prerequisites
 1. Setup PHP Environment - VS16 x64 Thread Safe <br />
