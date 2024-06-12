@@ -10,8 +10,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="index.php">Home <span class="sr-only"></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="product.php">Product</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                        <li><a class="dropdown-item" href="#">Switches</a></li>
+                        <li><a class="dropdown-item" href="#">Keyboard</a></li>
+                        <li><a class="dropdown-item" href="#">Keycaps</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="aboutus.php">About Us</a>
@@ -19,7 +24,7 @@
             </ul>
             <?php
             if (@$_SESSION['role'] == "customer") {
-            ?>
+                ?>
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item">
@@ -33,15 +38,15 @@
                         <a class="nav-link" href="logout.php">Logout</a> <!-- redirect to login.php after logging out-->
                     </li>
                 </ul>
-            <?php
+                <?php
             } else {
-            ?>
+                ?>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Log In</a>
                     </li>
                 </ul>
-            <?php
+                <?php
             }
             ?>
         </div>

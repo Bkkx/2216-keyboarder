@@ -1,6 +1,6 @@
 /* nav */
 .primary-color{
-    background-color: #102C57; 
+    background-color: #102C57 !important; 
 }
 .secondary-color{
     background-color: #1679AB;
@@ -10,4 +10,8 @@
 }
 .secondary-sub-color{
     background-color: #FFCBCB;
+}
+/*body */
+body{
+     background-color: #FFCBCB;
 }
