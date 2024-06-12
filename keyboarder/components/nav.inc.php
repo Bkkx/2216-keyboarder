@@ -13,9 +13,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item" href="#">Switches</a></li>
-                        <li><a class="dropdown-item" href="#">Keyboard</a></li>
-                        <li><a class="dropdown-item" href="#">Keycaps</a></li>
+                        <li><a class="dropdown-item" href="productSwitch.php">Switches</a></li>
+                        <li><a class="dropdown-item" href="productKeyboard.php">Keyboard</a></li>
+                        <li><a class="dropdown-item" href="productSwitch.php">Keycaps</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
