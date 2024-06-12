@@ -12,7 +12,7 @@ Link: https://getcomposer.org/download/
 3. Installing Laravel <br />
 ```composer global require laravel/installer``` <br />
 
-4. Running
+4. Running <br />
 ```cd into project folder ``` <br />
 ```php artisan serve ``` <br />
 
