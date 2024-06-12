@@ -19,12 +19,12 @@ Add ```use keyboarder``` at 1st line of the SQL.
 Edit the Config file to match your Local Credential <br /> 
 Under ``` process/config.php ```
 
-<?php
-// config.php
-return [
-    'servername' => 'localhost',  // or your server name
-    'username' => 'root',
-    'password' => 'your_password',
-    'dbname' => 'keyboarder'
-];
-?>
+<?php <br /> 
+// config.php <br /> 
+return [ <br /> 
+    'servername' => 'localhost',  // or your server name <br /> 
+    'username' => 'root', <br /> 
+    'password' => 'your_password', <br /> 
+    'dbname' => 'keyboarder' <br /> 
+]; <br /> 
+?> <br /> 
