@@ -2,15 +2,20 @@
 # 2216-keyboarder
 ## Prerequisites
 1. Setup PHP Environment - VS16 x64 Thread Safe <br />
-Link: https://windows.php.net/download#php-8.3 <br />
+~~Link: https://windows.php.net/download#php-8.3~~ <br />
+Just use the folder provided in git, during migration to server, replace server PHP.ini with this version of PHP.ini <br />
 How to: https://www.geeksforgeeks.org/how-to-install-php-in-windows-10/
 
 2. Composer to install laravel <br />
 Link: https://getcomposer.org/download/
 
-3. Installing Laravel
-```composer global require laravel/installer```
-=======
+3. Installing Laravel <br />
+```composer global require laravel/installer``` <br />
+
+4. Running
+```cd into project folder ``` <br />
+```php artisan serve ``` <br />
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
