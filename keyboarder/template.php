@@ -13,5 +13,8 @@
         ?>
         <main class="container mt-5">
         </main>
+         <?php
+        include "components/footer.inc.php";
+        ?>
     </body>
 </html>
