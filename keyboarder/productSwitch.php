@@ -31,29 +31,35 @@
             .card-clickable:hover {
             text-decoration: none; /* Remove underline on hover */
             }
+            .title{
+                text-align: center;
+                color: #666666;
+            }
+            
+         
         </style>
     </head>
     <body>
         <?php include "components/nav.inc.php"; ?>
 
         <div class="category-banner-container">
-                <img src="img/switchbanner.jpg" class="category-banner" alt="Switches Category Banner">
+                <img src="images/banner/switchbanner.jpg" class="category-banner" alt="Switches Category Banner">
             </div>
         <main class="container">
-           
+            <h1 class="title">Switches</h1>
             <div class="container mt-5 selection">
                 <?php
                 // Sample items array
                 $items = [
-                    ["name" => "Item 1", "price" => "$10.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 2", "price" => "$15.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 3", "price" => "$20.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 4", "price" => "$25.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 5", "price" => "$30.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 6", "price" => "$35.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 7", "price" => "$40.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 8", "price" => "$45.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
-                    ["name" => "Item 9", "price" => "$45.00", "image" => "img/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 1", "price" => "$10.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 2", "price" => "$15.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 3", "price" => "$20.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 4", "price" => "$25.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 5", "price" => "$30.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 6", "price" => "$35.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 7", "price" => "$40.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 8", "price" => "$45.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
+                    ["name" => "Item 9", "price" => "$45.00", "image" => "images/switches/switch.jpg", "desc" => "Lorum ipsum"],
                 ];
 
                 // Number of items per row
