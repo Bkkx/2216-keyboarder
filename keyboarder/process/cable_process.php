@@ -29,12 +29,12 @@ $result = mysqli_stmt_get_result($stmt);
 
 // Display data in Cards Item
 while ($row = mysqli_fetch_assoc($result)) {
-    if (limit_text($row['product_quantity'], 10) > 0 && $row['category_id']==4) {
+    if (limit_text($row['product_quantity'], 10) > 0 && $row['category_id']==2) {
         echo 
         "<div class = 'card_container content col-lg-3 col-md-6 col-sm-6 col-12 active'>" .
         "<a href='productdetails.php?id=" . $row['product_id'] . "'>" .
         "<div class='card h-100'>" .
-        "<img class='card-img-top' src='images/keyboard/" . $row['product_name'] . ".jpg' alt='Card image cap' loading='lazy'>" .
+        "<img class='card-img-top' src='images/cables/" . $row['product_name'] . ".jpg' alt='Card image cap' loading='lazy'>" .
         "<div class='card-body'>" .
         "<h5 class='card-title'>" . $row['product_name'] . "</h5>" .
         "<p class='card-text'>" . limit_text($row['product_sd'], 10) . "</p>" .
@@ -45,13 +45,13 @@ while ($row = mysqli_fetch_assoc($result)) {
         "</a>" .
         "</div>";
     }
-    else if (limit_text($row['product_quantity'], 10) == 0 && $row['category_id']==4) 
+    else if (limit_text($row['product_quantity'], 10) == 0 && $row['category_id']==2) 
     {
         echo 
         "<div class = 'card_container content col-lg-3 col-md-6 col-sm-6 col-12 active'>" .
         "<a href='productdetails.php?id=" . $row['product_id'] . "'>" .
         "<div class='card h-100'>" .
-        "<img class='card-img-top' src='images/keyboard/" . $row['product_name'] . ".jpg' alt='Card image cap' loading='lazy'>" .
+        "<img class='card-img-top' src='images/cables/" . $row['product_name'] . ".jpg' alt='Card image cap' loading='lazy'>" .
         "<div class='card-body'>" .
         "<h5 class='card-title'>" . $row['product_name'] . "</h5>" .
         "<p class='card-text'>" . limit_text($row['product_sd'], 10) . "</p>" .

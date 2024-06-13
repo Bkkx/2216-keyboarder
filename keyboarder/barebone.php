@@ -13,10 +13,10 @@
             </div>
         <body>
         
-        <h1 class="title">Keycaps</h1>
+        <h1 class="title">Barebone kits</h1>
 
         <div class="container mt-5 selection">
-            <div  id="keycapcard-deck" class="product-category row d-flex justify-content-center row-cols-3 g-3 mt-1">
+            <div  id="barebonecard-deck" class="product-category row d-flex justify-content-center row-cols-3 g-3 mt-1">
                 <!-- Content goes here -->
             </div>
         </div>
@@ -25,6 +25,5 @@
         include "components/footer.inc.php";
         ?>
     </body>
-    <script defer src="js/keycap.js"></script>
+    <script defer src="js/barebone.js"></script>
 </html>
-
