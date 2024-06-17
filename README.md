@@ -6,6 +6,7 @@ How to: https://www.geeksforgeeks.org/how-to-install-php-in-windows-10/<br />
 
 2. Netbeans to Run the project
 
+3. Test
 ## Database (Local)
 ### Setup
 MySQL Sever:<br />
