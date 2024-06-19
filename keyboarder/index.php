@@ -15,7 +15,7 @@
             <div class="banner">
                 <img src="images/banner/banner.jpg" class="img-fluid w-100" alt="Banner Image">
                 <div class="banner-text">
-                    <h1>Welcome to Keyboarder</h1>
+                    <h1>Welcome to Keyboarder!</h1>
                     <p>Discover the Perfect Keyboard for You</p>
                 </div>
             </div>

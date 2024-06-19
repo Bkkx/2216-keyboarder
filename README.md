@@ -5,7 +5,7 @@ Link: https://windows.php.net/download#php-8.3 <br />
 How to: https://www.geeksforgeeks.org/how-to-install-php-in-windows-10/<br />
 
 2. Netbeans to Run the project
-
+#####
 ## Database (Local)
 ### Setup
 MySQL Sever:<br />
@@ -28,3 +28,4 @@ return [ <br />
     'dbname' => 'keyboarder' <br /> 
 ]; <br /> 
 ?> <br /> 
+#
