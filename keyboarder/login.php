@@ -16,7 +16,7 @@
                 <div class="logincontainer row-cols-3 g-3">
                     <div class="left col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-text">
-                            <h2>New Keyboarder?</h2>
+                            <h2>New Keyboarder??</h2>
                             <p>Start your DIY Journey with us!</p>
                             <a href="register.php" class="btn">Register</a>
                         </div>
