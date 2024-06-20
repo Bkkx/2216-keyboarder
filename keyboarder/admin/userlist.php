@@ -41,5 +41,5 @@ $_SESSION['admin_id'] = 1;
         include "components/footer.inc.php";
         ?>
     </body>
-    <script defer src="js/userfetch.js"></script>
+    <script defer src="js/userlist.js"></script>
 </html>

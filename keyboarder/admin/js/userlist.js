@@ -2,7 +2,7 @@ $(document).ready(function () {
     function fetchTableData(table, columns) {
         console.log("load First");
         $.ajax({
-            url: "process/userfetch_process.php",
+            url: "process/userlist_process.php",
             type: "GET",
             data: {table: table, columns: columns},
             success: function (response) {
