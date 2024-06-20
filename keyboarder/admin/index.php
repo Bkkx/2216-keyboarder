@@ -65,8 +65,6 @@ $_SESSION['admin_id'] = 1;
                             </div>
                         </a>
                     </div>
-
-
                 </div>
             </div>
         </main>

@@ -13,30 +13,25 @@ $_SESSION['admin_id'] = 1;
         include "components/essential.inc.php";
         ?>
         <link rel="stylesheet" href="css/main.css">
-         <link rel="stylesheet" href="css/itemlist.css">
-        
+        <link rel="stylesheet" href="css/itemlist.css">
     </head>
 
     <body>
         <?php
         include "components/nav.inc.php";
         ?>
-            <header class="jumbotron text-center">
-                <h1 class="display-4">Welcome to Keyboarder!</h1>
-                <h2>Keyboard Enthusiast Hub</h2>
-                <h4>User List</h4>
-            </header>
-            <main class="container">
-                <div class="filter_panel">
-                </div>
-                <div class=" row row-cols-3 g-3">
-                    <div  class="col-lg-12 col-md-12 col-sm-12 col-12 table-responsive">
-                        <table id="item-list" class="table">
+        <main class="container">
+            <h1 class="display-4">User List</h1>
+            <div class="filter_panel">
+            </div>
+            <div class=" row row-cols-3 g-3">
+                <div  class="col-lg-12 col-md-12 col-sm-12 col-12 table-responsive">
+                    <table id="item-list" class="table">
 
-                        </table>
-                    </div>
+                    </table>
                 </div>
-            </main>
+            </div>
+        </main>
         <?php
         include "components/footer.inc.php";
         ?>

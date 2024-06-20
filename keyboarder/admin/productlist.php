@@ -9,14 +9,15 @@ include "sessions/sessiontimeout.php";
         ?>
 
         <link rel="stylesheet" href="css/main.css">
-         <link rel="stylesheet" href="css/itemlist.css">
+        <link rel="stylesheet" href="css/itemlist.css">
     </head>
 
     <body>
         <?php
         include "components/nav.inc.php";
         ?>
-        <main class="container mt-5">
+        <main class="container">
+            <h1 class="display-4">Product List</h1>
             <div>
                 <a href="addproduct.php"><button class='btn btn-primary edit-button'>Add New Product</button></a>
             </div>
@@ -32,5 +33,5 @@ include "sessions/sessiontimeout.php";
         include "components/footer.inc.php";
         ?>
     </body>
-     <script defer src="js/productlist.js"></script>
+    <script defer src="js/productlist.js"></script>
 </html>

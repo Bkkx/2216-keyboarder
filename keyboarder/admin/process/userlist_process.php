@@ -57,7 +57,7 @@ if ($conn->connect_error) {
             "<td>" .
             "<div class='action-container'>" .
             "<a href='edit.php?customerid=" . $row['customer_id'] . "'><button class='btn btn-warning edit-button'>Edit</button></a>" .
-            "<form class='action-form' action='process_delete.php?customerid=" . $row['customer_id'] . "' method='post'>" .
+            "<form class='action-form' action='process/delete_process.php?customerid=" . $row['customer_id'] . "' method='post'>" .
             "<input type='hidden' name='customer_id' value='" . $row['customer_id'] . "'>" .
             "<input class='password-text' type='password' name='admin_pwd' placeholder='Admin Password' required>" .
             "<input class='btn btn-danger' type='submit' name='submit' value='Delete'>" .

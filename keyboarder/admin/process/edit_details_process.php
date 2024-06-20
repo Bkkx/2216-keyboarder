@@ -63,7 +63,7 @@ if ($conn->connect_error) {
             "<label for='admin_pwd'>Enter Admin Password</label>" .
             "<input class='form-control password-text' type='password' name='admin_pwd' placeholder='Admin Password' required>" .
             "</div>" .
-            "<input class='btn btn-success' type='submit' name='submit' value='Save'>" .
+            "<input class='btn btn-success mt-3' type='submit' name='submit' value='Save'>" .
             "</form>";
         }
     }
@@ -100,7 +100,7 @@ if ($conn->connect_error) {
             "<label for='admin_pwd'>Enter Admin Password</label>" .
             "<input class='form-control password-text' type='password' name='admin_pwd' placeholder='Admin Password' required>" .
             "</div>" .
-            "<input class='btn btn-success' type='submit' name='submit' value='Save'>" .
+            "<input class='btn btn-success mt-3' type='submit' name='submit' value='Save'>" .
             "</form>";
         }
     }
@@ -116,9 +116,9 @@ if ($conn->connect_error) {
             "<div class='form-group'>" .
             "<label for='order_status'>Order Status</label>";
             if ($row[$table_name . '_status']) {
-                echo "<p class='text-danger'>" . "Current Status: " . $row[$table_name . '_status'] . "</p>";
+                echo "<p class='text-danger' style='background-color: #FFFF00'>" . "Current Status: " . $row[$table_name . '_status'] . "</p>";
             } else {
-                echo "<p class='text-danger'>" . "Current Status: None" . "</p>";
+                echo "<p class='text-danger' style='background-color: #FFFF00'>" . "Current Status: None" . "</p>";
             }
             echo "<select class='form-control' name='order_status'>" .
             "<option value = 'Awaiting Fufillment'>Awaiting Fufillment</option>" .
@@ -130,7 +130,7 @@ if ($conn->connect_error) {
             "<label for='admin_pwd'>Enter Admin Password</label>" .
             "<input class='form-control password-text' type='password' name='admin_pwd' placeholder='Admin Password' required>" .
             "</div>" .
-            "<input class='btn btn-success' type='submit' name='submit' value='Save'>" .
+            "<input class='btn btn-success mt-3' type='submit' name='submit' value='Save'>" .
             "</form>";
         }
     }

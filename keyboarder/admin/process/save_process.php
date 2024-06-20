@@ -45,26 +45,16 @@ if ($conn->connect_error) {
 
             $affected_rows = mysqli_stmt_affected_rows($stmt);
             if ($affected_rows > 0) {
-                include "essential.inc.php";
-                include "nav.inc.php";
-                echo "<main class='container'>";
-                echo "<div class='user_notification'>";
-                echo "<h4>Save successful. {$affected_rows} rows affected.</h4>";
-                echo "<button type='button' class='btn btn-success'><a href='productlist.php'>Back to Product List</a></button>";
-                echo "</div>";
-                echo "</main>";
-                include "footer.inc.php";
+                echo "<script>
+                alert('Add successful. {$affected_rows} rows affected.');
+                window.location.href = '../productlist.php';
+                </script>";
             }
         } else {
-            include "essential.inc.php";
-            include "nav.inc.php";
-            echo "<main class='container'>";
-            echo "<div class='user_notification'>";
-            echo "<h4>Save failed. No rows affected. <br> $errorMsg </h4>";
-            echo "<button type='button' class='btn btn-success'><a href='productlist.php'>Back to Product List</a></button>";
-            echo "</div>";
-            echo "</main>";
-            include "footer.inc.php";
+            echo "<script>
+            alert('Add failed. No rows affected. $errorMsg');
+            window.location.href = '../productlist.php';
+            </script>";
         }
         // Close the statement
         mysqli_stmt_close($stmt);
@@ -96,26 +86,16 @@ if ($conn->connect_error) {
 
             $affected_rows = mysqli_stmt_affected_rows($stmt);
             if ($affected_rows > 0) {
-                include "essential.inc.php";
-                include "nav.inc.php";
-                echo "<main class='container'>";
-                echo "<div class='user_notification'>";
-                echo "<h4>Save successful. {$affected_rows} rows affected.</h4>";
-                echo "<button type='button' class='btn btn-success'><a href='userlist.php'>Back to User List</a></button>";
-                echo "</div>";
-                echo "</main>";
-                include "footer.inc.php";
+               echo "<script>
+               alert('Add successful. {$affected_rows} rows affected.');
+               window.location.href = '../userlist.php';
+               </script>";
             }
         } else {
-            include "essential.inc.php";
-            include "nav.inc.php";
-            echo "<main class='container'>";
-            echo "<div class='user_notification'>";
-            echo "<h4>Save failed. No rows affected.<br> $errorMsg </h4>";
-            echo "<button type='button' class='btn btn-success'><a href='userlist.php'>Back to User List</a></button>";
-            echo "</div>";
-            echo "</main>";
-            include "footer.inc.php";
+            echo "<script>
+            alert('Add failed. No rows affected. $errorMsg');
+            window.location.href = '../userlist.php';
+            </script>";
         }
         // Close the statement
         mysqli_stmt_close($stmt);
@@ -141,26 +121,16 @@ if ($conn->connect_error) {
 
             $affected_rows = mysqli_stmt_affected_rows($stmt);
             if ($affected_rows > 0) {
-                include "essential.inc.php";
-                include "nav.inc.php";
-                echo "<main class='container'>";
-                echo "<div class='user_notification'>";
-                echo "<h4>Save successful. {$affected_rows} rows affected.</h4>";
-                echo "<button type='button' class='btn btn-success'><a href='orderlist.php'>Back to Order List</a></button>";
-                echo "</div>";
-                echo "</main>";
-                include "footer.inc.php";
+               echo "<script>
+               alert('Add successful. {$affected_rows} rows affected.');
+               window.location.href = '../orderlist.php';
+               </script>";
             }
         } else {
-            include "essential.inc.php";
-            include "nav.inc.php";
-            echo "<main class='container'>";
-            echo "<div class='user_notification'>";
-            echo "<h4>Save failed. No rows affected.<br> $errorMsg </h4>";
-            echo "<button type='button' class='btn btn-success'><a href='orderlist.php'>Back to Order List</a></button>";
-            echo "</div>";
-            echo "</main>";
-            include "footer.inc.php";
+            echo "<script>
+            alert('Add failed. No rows affected. $errorMsg');
+            window.location.href = '../orderlist.php';
+            </script>";
         }
     }
 }

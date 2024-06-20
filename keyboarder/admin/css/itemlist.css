@@ -2,6 +2,9 @@
 .container{
     margin-bottom: 20px;
 }
+.container h1{
+    text-align: center;
+}
 .user_notification{
     margin-top:20px;
     margin-bottom: 25px;
@@ -38,7 +41,7 @@
 #item-list th {
     padding:12px;
     text-align: center;
-    background-color: #04AA6D;
+    background-color: #102C57 !important;
     color: white;
 }
 .filter_panel{
