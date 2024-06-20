@@ -17,7 +17,7 @@ include "sessions/sessiontimeout.php";
             </div>
         <body>
         
-        <h1 class="title">Barebone kits</h1>
+        <h1 class="title">Barebone</h1>
 
         <div class="container mb-5 selection">
             <div  id="barebonecard-deck" class="product-category row d-flex justify-content-center row-cols-3 g-3 mt-1">

@@ -15,9 +15,9 @@ include "sessions/sessiontimeout.php";
         <?php
         include "components/nav.inc.php";
         ?>
-        <main class="container mt-5">
+        <main class="container mt-3">
             <h1> Shopping Cart</h1>
-            <form action="process_checkoutCart.php" method="post">
+            <form action="process/checkoutcart_process.php" method="post" class="mt-3">
                 <div class="cart-list" id="cart-list">
                 </div>
                 <?php
@@ -36,6 +36,6 @@ include "sessions/sessiontimeout.php";
         include "components/footer.inc.php";
         ?>
     </body>
-       <link rel="stylesheet" href="css/productdetails.css">
+    <link rel="stylesheet" href="css/cart.css">
     <script defer src="js/cart.js"></script>
 </html>

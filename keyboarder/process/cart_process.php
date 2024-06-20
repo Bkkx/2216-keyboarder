@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 //table name
 $table_name = $_GET['table'];
 //columns name
@@ -52,15 +50,15 @@ foreach ($_SESSION['cart'] as $productId => $value) {
         echo "<div class='row product-information'>";
         echo "<div class='col-md-9'>";
         echo "<div class='row'>";
-        echo "<div class='col-md-3'>";
+        echo "<div class='col-md-6'>";
         echo "<img class='product-image' src='images/" . $image_name . ".jpg' alt='Card image cap' loading='lazy'>";
         echo "</div>";
-        echo "<div class='col-md-9'>";
-        echo "<h5 class='card-title'>" . $row[$table_name . '_name'] . "</h5>";
-        echo "<p class='card-text'>" . limit_text($row[$table_name . '_sd'], 10) . "</p><br>";
+        echo "<div class='col-md-6'>";
+        echo "<h5 class='card-title mt-2'>" . $row[$table_name . '_name'] . "</h5>";
+        echo "<p class='card-text'>" . $row[$table_name . '_sd'] . "</p>";
         echo "<strong>Item Description:</strong><br>";
-        echo "<p class='card-description'>" . $row[$table_name . '_ld'] . "</p>";
-        echo "<p class='card-price'><strong>SGD$" . limit_text($row[$table_name . '_cost'], 10) . "</strong></p>";
+        echo "<p class='card-description'>" . limit_text($row[$table_name . '_ld'], 200) . "</p>";
+        echo "<p class='card-price'><strong>SGD$" . $row[$table_name . '_cost'] . "</strong></p>";
         echo "<p>Stock: " . $row[$table_name . '_quantity'] . "</p>";
         echo "</div>";
         echo "</div>";
@@ -73,7 +71,7 @@ foreach ($_SESSION['cart'] as $productId => $value) {
         echo "<input name='num_item' id='num_item' type='number' value='" . $_SESSION['cart'][$row[$table_name . '_id']]['qty'] . "'  maxlength='2' max='" . $row[$table_name . '_quantity'] . "'>";
         echo "<span class='up' onClick='increaseCount(event, this)'>+</span>";
         echo "</div>";
-        echo "<button class='addtocart' type='button'>Update Quantity</button>";
+        echo "<button class='addtocart mt-2' type='button'  onclick='updateQuantity(" .$row[$table_name . '_id'] .")'>Update Quantity</button>";
         echo "</div>";
         echo "</div>";
         echo "</div>";

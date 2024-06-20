@@ -20,9 +20,9 @@
                         <li><a class="dropdown-item" href="switches.php">Switches</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" href="aboutus.php">About Us</a>
-                </li>
+                </li> -->
             </ul>
             <?php
             if (@$_SESSION['role'] == "customer") {

@@ -1,3 +1,12 @@
+.card{
+    border-bottom: 1px solid #FFB1B1;;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+}
+
+
 .back-button {
     margin-bottom: 15px;
     align-items: center;
@@ -67,12 +76,14 @@
 }
 .product-information{
     height:100%;
-    padding:40px;
+    width: 100%;
+    margin:auto;
+    padding:20px;
     background-color:#102C57 ;
     color: #FFB1B1;
 }
 .product-image{
-    height: 100%;
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,13 +91,14 @@
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 .counter {
+    margin: auto;
     width: 150px;
     display: flex;
     align-items: center;
@@ -115,32 +127,32 @@ input[type=number] {
 }
 /*Add to Cart*/
 .addtocart {
-  background-color: #fff000;
-  border-radius: 12px;
-  color: #000;
-  cursor: pointer;
-  font-weight: bold;
-  padding: 10px 15px;
-  text-align: center;
-  transition: 200ms;
-  width: 100%;
-  box-sizing: border-box;
-  border: 0;
-  font-size: 16px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+    background-color: #fff000;
+    border-radius: 12px;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .addtocart:not(:disabled):hover,
 .addtocart:not(:disabled):focus {
-  outline: 0;
-  background: #FFA756;
-  box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+    outline: 0;
+    background: #FFA756;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
 
 .addtocart:disabled {
-  filter: saturate(0.2) opacity(0.5);
-  -webkit-filter: saturate(0.2) opacity(0.5);
-  cursor: not-allowed;
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
 }
