@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //table name
 $table_name = $_GET['table'];

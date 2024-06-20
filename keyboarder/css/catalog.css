@@ -38,6 +38,10 @@
 .card{
     box-shadow: 0 0.0625rem 0.125rem 0 rgb(0 0 0 / 10%);
 }
+.card-body{
+    background-color: #102C57 !important;
+    color: #FFCBCB;
+}
 .card:hover{
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
     transform: translateY(-0.0625rem);

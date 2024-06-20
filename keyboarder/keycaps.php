@@ -1,3 +1,7 @@
+<?php
+session_start();
+include "sessions/sessiontimeout.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,7 +19,7 @@
         
         <h1 class="title">Keycaps</h1>
 
-        <div class="container mt-5 selection">
+        <div class="container mb-5 selection">
             <div  id="keycapcard-deck" class="product-category row d-flex justify-content-center row-cols-3 g-3 mt-1">
                 <!-- Content goes here -->
             </div>

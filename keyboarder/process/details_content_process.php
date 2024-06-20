@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 //table name
@@ -43,7 +45,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     "<p class='card-description'>" . $row[$table_name . '_ld'] . "</p>" .
     "<p class='card-price'><strong>SGD$" . limit_text($row[$table_name . '_cost'], 10) . "</strong></p>" .
     "<p class='card-text'>" .
-    "<form action='process_addCart.php' method='post'>" .
+    "<form action='process/addcart_process.php' method='post'>" .
     "<input type='hidden' id='productid' name='productid' value='$productid'>" .
     "<div class = 'counter'>" .
     "<span class = 'down' onClick ='decreaseCount(event, this)'>-</span>" .

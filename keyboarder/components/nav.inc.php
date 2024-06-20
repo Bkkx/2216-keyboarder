@@ -13,9 +13,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item" href="productSwitch.php">Switches</a></li>
-                        <li><a class="dropdown-item" href="productKeyboard.php">Keyboard</a></li>
-                        <li><a class="dropdown-item" href="productKeycap.php">Keycaps</a></li>
+                        <li><a class="dropdown-item" href="barebone.php">Barebore</a></li>
+                        <li><a class="dropdown-item" href="cables.php">Cables</a></li>
+                        <li><a class="dropdown-item" href="keyboard.php">Keyboard</a></li>
+                        <li><a class="dropdown-item" href="keycaps.php">Keycaps</a></li>
+                        <li><a class="dropdown-item" href="switches.php">Switches</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
