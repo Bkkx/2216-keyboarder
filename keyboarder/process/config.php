@@ -3,7 +3,7 @@
 return [
     'servername' => 'localhost',  // or your server name
     'username' => 'root',
-    'password' => 'Toor',
+    'password' => 'admin',
     'dbname' => 'keyboarder'
 ];
 ?>
