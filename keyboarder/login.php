@@ -35,7 +35,7 @@ include "sessions/sessiontimeout.php";
                                 </p>
                                 <p>
                                     <label for="customer_pwd">Password: <span>*</span></label>
-                                    <input type="password" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
+                                    <input type="text" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
                                 </p>
                                 <div id="html_element"></div>
                                 <p>

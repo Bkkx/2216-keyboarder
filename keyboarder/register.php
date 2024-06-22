@@ -1,11 +1,8 @@
-<?php
-session_start();
-include "sessions/sessiontimeout.php";
-?>
 <html lang="en">
     <head>
         <?php
         include "components/essential.inc.php";
+        session_start();
         ?>
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/login_reg.css">
@@ -28,7 +25,7 @@ include "sessions/sessiontimeout.php";
                     <div class="right col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-form">
                             <h2>Register</h2>
-                            <form action="processregister.php" method="post">
+                            <form action="process_register.php" method="post">
                                 <p>
                                     <label for="customer_fname">First Name: <span>*</span></label>
                                     <input type="text" id="customer_fname" name="customer_fname" placeholder="Enter First Name" required>
