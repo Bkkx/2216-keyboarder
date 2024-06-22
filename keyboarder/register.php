@@ -24,7 +24,7 @@
                     <div class="right col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-form">
                             <h2>Register</h2>
-                            <form action="processregister.php" method="post">
+                            <form action="process_register.php" method="post">
                                 <p>
                                     <label for="customer_fname">First Name: <span>*</span></label>
                                     <input type="text" id="customer_fname" name="customer_fname" placeholder="Enter First Name" required>
