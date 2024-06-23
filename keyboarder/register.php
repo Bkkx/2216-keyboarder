@@ -25,7 +25,7 @@
                     <div class="right col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-form">
                             <h2>Register</h2>
-                            <form action="process_register.php" method="post">
+                            <form action="process/process_register.php" method="post">
                                 <p>
                                     <label for="customer_fname">First Name: <span>*</span></label>
                                     <input type="text" id="customer_fname" name="customer_fname" placeholder="Enter First Name" required>
@@ -48,11 +48,11 @@
                                 </p>
                                 <p>
                                     <label for="customer_pwd">Password: <span>*</span></label>
-                                    <input type="password" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
+                                    <input type="text" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
                                 </p>
                                 <p>
                                     <label for="confirm_pwd">Confirm Password: <span>*</span></label>
-                                    <input type="password" id="confirm_pwd" name="confirm_pwd" placeholder="Confirm Password" required>
+                                    <input type="text" id="confirm_pwd" name="confirm_pwd" placeholder="Confirm Password" required>
                                 </p>
                                 <!-- Hidden fields for points and join date -->
                                 <input type="hidden" name="customer_points" value="0">

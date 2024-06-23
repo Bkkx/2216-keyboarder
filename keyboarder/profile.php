@@ -22,6 +22,14 @@ $stmt->bind_param("i", $customer_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $customer = $result->fetch_assoc();
+
+// Fetch orders for the customer
+$order_sql = "SELECT * FROM `order` WHERE customer_id = ?";
+$order_stmt = $conn->prepare($order_sql);
+$order_stmt->bind_param("i", $customer_id);
+$order_stmt->execute();
+$order_result = $order_stmt->get_result();
+$orders = $order_result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <html lang="en">
@@ -34,6 +42,22 @@ $customer = $result->fetch_assoc();
             }
             #passwordFields {
                 display: none;
+            }
+            .orders-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            .orders-table th, .orders-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+            .orders-table th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #102C57;
+                color: white;
             }
         </style>
         <script>
@@ -100,6 +124,36 @@ $customer = $result->fetch_assoc();
                         </div>
                     </form>
                 </div>
+
+                <div class="orders-container">
+                    <h2>Your Orders</h2>
+                    <?php if (count($orders) > 0): ?>
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Product ID</th>
+                                    <th>Quantity</th>
+                                    <th>Tracking No.</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($orders as $order): ?>
+                                    <tr>
+                                        <td><?php echo $order['order_id']; ?></td>
+                                        <td><?php echo $order['product_id']; ?></td>
+                                        <td><?php echo $order['order_quantity']; ?></td>
+                                        <td><?php echo $order['order_tracking_no']; ?></td>
+                                        <td><?php echo $order['order_status']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <p>No orders found.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </main>
         <?php include "components/footer.inc.php"; ?>
@@ -109,4 +163,5 @@ $customer = $result->fetch_assoc();
 <?php
 $stmt->close();
 $conn->close();
+$order_stmt->close();
 ?>
