@@ -1,4 +1,5 @@
 <?php
+
 // Start session
 session_start();
 
@@ -26,8 +27,14 @@ $result = $stmt->get_result();
 
 // Check if user exists
 if ($result->num_rows === 1) {
+    // User found, fetch the result
+    $row = $result->fetch_assoc();
     // User found, set session variables and redirect to a secure page
-    $_SESSION['customer_email'] = $customer_email;
+    $_SESSION['customer_email'] = $row['customer_email'];
+    $_SESSION['token'] = $token;
+    $_SESSION['token_time'] = time();
+    $_SESSION['role'] = "customer"; //setting role of user session to customer. to verify is logged in and is user to make some website unaccessible
+    $_SESSION['customer_id'] = $row['customer_id'];
     header("Location: index.php"); // Redirect to a secure page, e.g., dashboard.php
     exit();
 } else {

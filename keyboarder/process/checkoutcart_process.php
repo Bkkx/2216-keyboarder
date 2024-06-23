@@ -33,7 +33,7 @@ function CheckOutCart() {
         sendEmail($date);
         unset($_SESSION['cart']);
     } else {
-        header("Location: ./response.php");
+        header("Location: ../response.php");
     }
 }
 

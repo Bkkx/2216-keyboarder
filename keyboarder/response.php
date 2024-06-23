@@ -16,7 +16,7 @@ include "sessiontimeout.php";
         ?>
         <main class="container mt-5">
             <?php
-            if (@$_SESSION['customer_id']) {
+            if ($_SESSION['customer_id']) {
                 echo "<h1> Thanks you for shopping at Keyboarder!</h1>" .
                 "<p> Shipping details will be emailed to you! </p> ";
             } else {

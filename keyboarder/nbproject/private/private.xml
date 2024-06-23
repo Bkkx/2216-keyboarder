@@ -3,15 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/process/delete_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/process/cart_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/response.php</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/js/productlist.js</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/js/edit.js</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/process/addcart_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/css/cart.css</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/process/update_quantity.php</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/index.php</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/edit.php</file>
+            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/process/config.php</file>
+            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/process/addproduct_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/process/edit_details_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/process/checkoutcart_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/js/cart.js</file>
@@ -19,13 +18,11 @@
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/process/cable_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/cart.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/template.php</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/css/edit.css</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/process/config.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/process/save_process.php</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/css/itemlist.css</file>
+            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/process_login.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/index.php</file>
-            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/admin/process/productlist_process.php</file>
             <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/barebone.php</file>
+            <file>file:/C:/Users/sia_h/OneDrive/Documents/GitHub/2216-keyboarder/keyboarder/login.php</file>
         </group>
     </open-files>
 </project-private>
