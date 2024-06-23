@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark primary-color" aria-label="Third navbar example">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Keyboarder</a>
+        <a class="navbar-brand" href="index.php">Keyboarder</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

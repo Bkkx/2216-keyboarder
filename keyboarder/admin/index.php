@@ -2,10 +2,6 @@
 session_start();
 include "sessions/sessiontimeout.php";
 
-$_SESSION['token'] = $token;
-$_SESSION['token_time'] = time();
-$_SESSION['role'] = "admin"; //setting role of user session to customer. to verify is logged in and is user to make some website unaccessible
-$_SESSION['admin_id'] = 1;
 ?>
 <html lang="en">
     <head>

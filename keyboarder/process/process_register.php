@@ -3,7 +3,7 @@
 session_start();
 
 // Include the config file
-$config = include('process/config.php');
+$config = include('config.php');
 
 // Create database connection
 $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
@@ -27,7 +27,7 @@ $customer_join_date = $_POST['customer_join_date'];
 // Validate form data
 if ($customer_pwd !== $confirm_pwd) {
     $_SESSION['errorMsg'] = "Passwords do not match.";
-    header("Location: register.php");
+    header("Location: ../register.php");
     exit();
 }
 
@@ -39,7 +39,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $_SESSION['errorMsg'] = "Email is already in use.";
-    header("Location: register.php");
+    header("Location: ../register.php");
     exit();
 }
 
@@ -50,10 +50,10 @@ $stmt->bind_param("ssssisss", $customer_fname, $customer_lname, $customer_email,
 
 if ($stmt->execute()) {
     $_SESSION['successMsg'] = "Registration successful. You can now log in.";
-    header("Location: login.php");
+    header("Location: ../login.php");
 } else {
     $_SESSION['errorMsg'] = "Error: " . $stmt->error;
-    header("Location: register.php");
+    header("Location: ../register.php");
 }
 
 // Close the connection

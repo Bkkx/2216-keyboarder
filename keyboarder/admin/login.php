@@ -20,8 +20,8 @@ include "sessions/sessiontimeout.php";
                 <div class="logincontainer row-cols-3 g-3">
                     <div class="left col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-text">
-                            <h2>New Keyboarder??</h2>
-                            <p>Start your DIY Journey with us!</p>
+                            <h2>Admin Portal</h2>
+                            <p>Start your Management by Logging in!</p>
                             <a href="register.php" class="btn">Register</a>
                         </div>
                     </div>
@@ -30,12 +30,12 @@ include "sessions/sessiontimeout.php";
                             <h2>Login</h2>
                             <form action="process/process_login.php" method="post">
                                 <p>
-                                    <label for="customer_email">Email: <span>*</span></label>
-                                    <input type="text" id="customer_email" name="customer_email" placeholder="Enter Email" required>
+                                    <label for="admin_email">Email: <span>*</span></label>
+                                    <input type="text" id="admin_email" name="admin_email" placeholder="Enter Email" required>
                                 </p>
                                 <p>
-                                    <label for="customer_pwd">Password: <span>*</span></label>
-                                    <input type="text" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
+                                    <label for="admin_pwd">Password: <span>*</span></label>
+                                    <input type="text" id="admin_pwd" name="admin_pwd" placeholder="Enter Password" required>
                                 </p>
                                 <div id="html_element"></div>
                                 <p>

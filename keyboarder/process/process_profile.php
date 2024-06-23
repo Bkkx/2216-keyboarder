@@ -2,7 +2,7 @@
 session_start();
 
 // Include the config file
-$config = include('process/config.php');
+$config = include('config.php');
 
 // Create database connection
 $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
@@ -25,7 +25,7 @@ $confirm_pwd = $_POST['confirm_pwd'];
 // Validate form data
 if ($change_password === "yes" && ($customer_pwd !== $confirm_pwd)) {
     $_SESSION['errorMsg'] = "Passwords do not match.";
-    header("Location: profile.php");
+    header("Location: ../profile.php");
     exit();
 }
 
@@ -42,10 +42,10 @@ if ($change_password === "yes") {
 
 if ($stmt->execute()) {
     $_SESSION['successMsg'] = "Profile updated successfully.";
-    header("Location: profile.php");
+    header("Location: ../profile.php");
 } else {
     $_SESSION['errorMsg'] = "Error: " . $stmt->error;
-    header("Location: profile.php");
+    header("Location: ../profile.php");
 }
 
 // Close the connection

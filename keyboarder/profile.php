@@ -54,7 +54,7 @@ $customer = $result->fetch_assoc();
                     <h2>Your Profile</h2>
                 </div>
                 <div class="profile-form">
-                    <form action="process_profile.php" method="post">
+                    <form action="process/process_profile.php" method="post">
                         <div class="form-group">
                             <label for="customer_fname">First Name:</label>
                             <input type="text" id="customer_fname" name="customer_fname" value="<?php echo $customer['customer_fname']; ?>" required>

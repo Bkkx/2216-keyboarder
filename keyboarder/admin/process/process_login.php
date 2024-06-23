@@ -4,7 +4,7 @@
 session_start();
 
 // Include the config file
-$config = include('process/config.php');
+$config = include('config.php');
 
 // Create database connection
 $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
@@ -15,13 +15,13 @@ if ($conn->connect_error) {
 }
 
 // Retrieve form data
-$customer_email = $_POST['customer_email'];
-$customer_pwd = $_POST['customer_pwd'];
+$admin_email = $_POST['admin_email'];
+$admin_pwd = $_POST['admin_pwd'];
 
 // Prepare and execute SQL statement
-$sql = "SELECT * FROM keyboarder.customer WHERE customer_email = ? AND customer_password = ?";
+$sql = "SELECT * FROM keyboarder.admin WHERE admin_email = ? AND admin_password = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $customer_email, $customer_pwd);
+$stmt->bind_param("ss", $admin_email, $admin_pwd);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -30,17 +30,17 @@ if ($result->num_rows === 1) {
     // User found, fetch the result
     $row = $result->fetch_assoc();
     // User found, set session variables and redirect to a secure page
-    $_SESSION['customer_email'] = $row['customer_email'];
+    $_SESSION['admin_email'] = $row['admin_email'];
     $_SESSION['token'] = $token;
     $_SESSION['token_time'] = time();
-    $_SESSION['role'] = "customer"; //setting role of user session to customer. to verify is logged in and is user to make some website unaccessible
-    $_SESSION['customer_id'] = $row['customer_id'];
-    header("Location: index.php"); // Redirect to a secure page, e.g., dashboard.php
+    $_SESSION['role'] = "admin"; //setting role of user session to customer. to verify is logged in and is user to make some website unaccessible
+    $_SESSION['admin_id'] = $row['admin_id'];
+    header("Location: ../index.php"); // Redirect to a secure page, e.g., dashboard.php
     exit();
 } else {
     // Invalid credentials
     $_SESSION['errorMsg'] = "Invalid email or password.";
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
 
