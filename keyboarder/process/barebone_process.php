@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 //table name
 $table_name = $_GET['table'];
 //columns name
@@ -19,6 +17,11 @@ $conn = new mysqli(
         $config['dbname']
 );
 
+// Graceful handling of connection error
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 // Prepare the statement
 $stmt = mysqli_prepare($conn, "SELECT $columns FROM $table_name");
 
@@ -34,14 +37,14 @@ while ($row = mysqli_fetch_assoc($result)) {
     if (limit_text($row['product_quantity'], 10) > 0 && $row['category_id']==5) {
         echo 
         "<div class = 'card_container content col-lg-3 col-md-6 col-sm-6 col-12 active'>" .
-        "<a href='productdetails.php?id=" .  $row['product_id'] . "'>" .
+        "<a href='productdetails.php?id=" .  htmlspecialchars($row['product_id']) . "'>" .
         "<div class='card h-100'>" .
         "<img class='card-img-top' src='images/barebone/" . $image_name . ".jpg' alt='Card image cap' loading='lazy'>" .
         "<div class='card-body'>" .
         "<h5 class='card-title'>" . $row['product_name'] . "</h5>" .
-        "<p class='card-text'>" . limit_text($row['product_sd'], 10) . "</p>" .
-        "<p class='card-price'><strong>SGD$" . limit_text($row['product_cost'], 10) . "</strong></p>" .
-        "<p class='card-text'>Stock: " . limit_text($row['product_quantity'], 10) . "</p>" .
+        "<p class='card-text'>" . htmlspecialchars(limit_text($row['product_sd'], 10)) . "</p>" .
+        "<p class='card-price'><strong>SGD$" . htmlspecialchars(limit_text($row['product_cost'], 10)) . "</strong></p>" .
+        "<p class='card-text'>Stock: " . htmlspecialchars(limit_text($row['product_quantity'], 10)) . "</p>" .
         "</div>" .
         "</div>" .
         "</a>" .
@@ -51,13 +54,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     {
         echo 
         "<div class = 'card_container content col-lg-3 col-md-6 col-sm-6 col-12 active'>" .
-        "<a href='productdetails.php?id=" . $row['product_id'] . "'>" .
+        "<a href='productdetails.php?id=" . htmlspecialchars($row['product_id']) . "'>" .
         "<div class='card h-100'>" .
         "<img class='card-img-top' src='images/barebone/" .  $image_name . ".jpg' alt='Card image cap' loading='lazy'>" .
         "<div class='card-body'>" .
-        "<h5 class='card-title'>" . $row['product_name'] . "</h5>" .
-        "<p class='card-text'>" . limit_text($row['product_sd'], 10) . "</p>" .
-        "<p class='card-price'><strong>SGD$" . limit_text($row['product_cost'], 10) . "</strong></p>" .
+        "<h5 class='card-title'>" . htmlspecialchars($row['product_name']) . "</h5>" .
+        "<p class='card-text'>" . htmlspecialchars(limit_text($row['product_sd'], 10)) . "</p>" .
+        "<p class='card-price'><strong>SGD$" . htmlspecialchars(limit_text($row['product_cost'], 10)) . "</strong></p>" .
         "<h5 class='text-danger'>Out Of Stock</h5>" .
         "</div>" .
         "</div>" .
