@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "sessions/sessiontimeout.php";
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 <html lang="en">
     <head>
@@ -28,14 +29,26 @@ include "sessions/sessiontimeout.php";
                     <div class="right col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-form">
                             <h2>Login</h2>
+                            <?php
+                            if (isset($_SESSION['errorMsg'])) {
+                                echo "<div class='errorMsg'>"; 
+                                foreach ($_SESSION['errorMsg'] as $message) {
+                                    echo "<p class='error'>" . htmlspecialchars($message) . "</p>";
+                                }
+                                echo "</div>";
+                                unset($_SESSION['errorMsg']); // Clear the error message after displaying it
+                            }
+                            ?>
                             <form action="process/process_login.php" method="post">
+                                <!-- Include the CSRF token in the form -->
+                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <p>
                                     <label for="customer_email">Email: <span>*</span></label>
                                     <input type="text" id="customer_email" name="customer_email" placeholder="Enter Email" required>
                                 </p>
                                 <p>
                                     <label for="customer_pwd">Password: <span>*</span></label>
-                                    <input type="text" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
+                                    <input type="password" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
                                 </p>
                                 <div id="html_element"></div>
                                 <p>
