@@ -38,13 +38,13 @@
                             <!-- Display error messages if there are any -->
                             <?php
                             if (isset($_SESSION['errorMsg']) && !empty($_SESSION['errorMsg']) && count($_SESSION['errorMsg']) > 0) {
-                                // echo '<div class="errorMsg">';
+                                echo '<div class="errorMsg">';
                                 foreach ($_SESSION['errorMsg'] as $message) {
-                                    echo "<p class='error'>$message</p>";
+                                    echo "<p class='error'>" . htmlspecialchars($message) . "</p>";
                                 }
                                 // Clear the error messages after displaying
                                 unset($_SESSION['errorMsg']);
-                                // echo '</div>';
+                                echo '</div>';
                             }
                             ?>
                             <form action="process/process_register.php" method="post">
