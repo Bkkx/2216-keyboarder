@@ -2,8 +2,8 @@
 // config.php
 return [
     'servername' => 'localhost',  // or your server name
-    'username' => '',
-    'password' => '',
+    'username' => 'root',
+    'password' => 'admin',
     'dbname' => 'keyboarder'
 ];
 ?>
