@@ -13,16 +13,16 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item" href="switches.php">Switches</a></li>
+                        <li><a class="dropdown-item" href="barebone.php">Barebore</a></li>
+                        <li><a class="dropdown-item" href="cables.php">Cables</a></li>
                         <li><a class="dropdown-item" href="keyboard.php">Keyboard</a></li>
                         <li><a class="dropdown-item" href="keycaps.php">Keycaps</a></li>
-                        <li><a class="dropdown-item" href="barebone.php">Barebone kits</a></li>
-                        <li><a class="dropdown-item" href="cables.php">Cables</a></li>
+                        <li><a class="dropdown-item" href="switches.php">Switches</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" href="aboutus.php">About Us</a>
-                </li>
+                </li> -->
             </ul>
             <?php
             if (@$_SESSION['role'] == "customer") {

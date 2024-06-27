@@ -1,3 +1,8 @@
+<?php
+session_start();
+include "sessions/sessiontimeout.php";
+#header("Content-Security-Policy: default-src 'self'; img-src 'self' https:mechkeys.ddns.net script-src 'self';");
+?>
 <html lang="en">
     <head>
         <?php

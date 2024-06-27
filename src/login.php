@@ -1,3 +1,7 @@
+<?php
+session_start();
+include "sessions/sessiontimeout.php";
+?>
 <html lang="en">
     <head>
         <?php
@@ -24,14 +28,14 @@
                     <div class="right col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-form">
                             <h2>Login</h2>
-                            <form action="process_login.php" method="post">
+                            <form action="process/process_login.php" method="post">
                                 <p>
                                     <label for="customer_email">Email: <span>*</span></label>
                                     <input type="text" id="customer_email" name="customer_email" placeholder="Enter Email" required>
                                 </p>
                                 <p>
                                     <label for="customer_pwd">Password: <span>*</span></label>
-                                    <input type="password" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
+                                    <input type="text" id="customer_pwd" name="customer_pwd" placeholder="Enter Password" required>
                                 </p>
                                 <div id="html_element"></div>
                                 <p>

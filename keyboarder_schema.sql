@@ -31,6 +31,8 @@ CREATE TABLE `order` (
   `customer_id` int unsigned NOT NULL,
   `product_id` int unsigned NOT NULL,
   `order_quantity` int NOT NULL,
+  `order_tracking_no` varchar(255) DEFAULT NULL,
+  `order_status` varchar(50) NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`order_id`),
   UNIQUE KEY `order_id_UNIQUE` (`order_id`),
   KEY `product_id_idx` (`product_id`),

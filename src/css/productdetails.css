@@ -66,6 +66,7 @@
     font-size: 14px;
 }
 .product-information{
+    height:100%;
     padding:40px;
     background-color:#102C57 ;
     color: #FFB1B1;

@@ -1,3 +1,7 @@
+<?php
+session_start();
+include "sessions/sessiontimeout.php";
+?>
 <html lang="en">
     <head>
         <?php
