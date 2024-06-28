@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "sessiontimeout.php";
+include "sessions/sessiontimeout.php";
 ?>
 <html>
     <head>
