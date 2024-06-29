@@ -15,6 +15,7 @@ include "sessions/sessiontimeout.php";
         <div class="category-banner-container">
             <img src="images/banner/switchbanner.jpg" class="category-banner" alt="Switches Category Banner">
         </div>
+        
         <h1 class="title">Switches</h1>
 
         <div class="container mb-5 selection">

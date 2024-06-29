@@ -25,22 +25,6 @@ CREATE TABLE `customer` (
   UNIQUE KEY `customer_email_UNIQUE` (`customer_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order` (
-  `order_id` int unsigned NOT NULL AUTO_INCREMENT,
-  `customer_id` int unsigned NOT NULL,
-  `product_id` int unsigned NOT NULL,
-  `order_quantity` int NOT NULL,
-  `order_tracking_no` varchar(255) DEFAULT NULL,
-  `order_status` varchar(50) NOT NULL DEFAULT 'pending',
-  PRIMARY KEY (`order_id`),
-  UNIQUE KEY `order_id_UNIQUE` (`order_id`),
-  KEY `product_id_idx` (`product_id`),
-  KEY `customer_id_idx` (`customer_id`),
-  CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
-
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` int unsigned NOT NULL AUTO_INCREMENT,
@@ -56,6 +40,24 @@ CREATE TABLE `product` (
   KEY `category_id` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+
+
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+  `order_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` int unsigned NOT NULL,
+  `product_id` int unsigned NOT NULL,
+  `order_quantity` int NOT NULL,
+  `order_tracking_no` varchar(255) DEFAULT NULL,
+  `order_status` varchar(50) NOT NULL DEFAULT 'pending',
+  PRIMARY KEY (`order_id`),
+  UNIQUE KEY `order_id_UNIQUE` (`order_id`),
+  KEY `product_id_idx` (`product_id`),
+  KEY `customer_id_idx` (`customer_id`),
+  CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
+  CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
 INSERT INTO `product` VALUES (1,'Kailh Box White',0.15,1,'Clicky Switch','Kailh Box switches have their signature box around a cross-shaped MX style stem which protects the switch from dust and moisture - giving it an IP56 resistance rating.',50),(2,'CableMod Pro Coiled',49.9,2,'Keyboard Cable','Elevate your keyboard setup to the next level with the CableMod Pro Keyboard Cable. Made for keyboards with a USB-C port, this coiled keyboard cable is sleeved with both ModFlex and ModMesh sleeving, and is the ultimate accessory to make your keyboard setup pop.',10),(3,'Pikachu Keycaps',79.9,3,'OEM Profile','Might not fit for Razer, Steelseries, Corsair, Logitec, Etc. If you`re unsure about this, please enquire as via IG DM @thekapco',5),(4,'Keychron K2',79.9,4,'Wireless','The Keychron K2 (Version 2) is a decent entry-level mechanical keyboard. Its small and compact design makes it fairly easy to carry around, and you shouldn`t have to worry about damaging it thanks to its excellent build quality.',5),(5,'Tecware Veil 87',85,5,'DIY Kit','Removable Type-C Cable, Southfacing per-key RGB PCB, 5-pin Mechanical Switch Compatible, Modular Kailh Switch Sockets, EVA PCB to Plate Dampener, Silicon Case Dampener, Key Remapping through Software, Customizable Fn1 Layer, RGB illumination, Compatible with Win XP,Vista 7,8,10, NKRO/87 Keys TKL Layout, Windows Key Disable, 1.8m Braided USB cable, Switch Keycap Puller Included, 1 Years Local Manufacturer Warranty',8);
 

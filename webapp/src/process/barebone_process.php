@@ -19,7 +19,9 @@ $conn = new mysqli(
 
 // Graceful handling of connection error
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    $_SESSION['errorMsg'] = "Connection failed: " . $conn->connect_error;
+    header("Location: ../barebone.php");
+    exit();
 }
 
 // Prepare the statement
@@ -39,7 +41,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         "<div class = 'card_container content col-lg-3 col-md-6 col-sm-6 col-12 active'>" .
         "<a href='productdetails.php?id=" .  htmlspecialchars($row['product_id']) . "'>" .
         "<div class='card h-100'>" .
-        "<img class='card-img-top' src='images/barebone/" . $image_name . ".jpg' alt='Card image cap' loading='lazy'>" .
+        "<img class='card-img-top' src='images/barebone/" . htmlspecialchars($image_name) . ".jpg' alt='Card image cap' loading='lazy'>" .
         "<div class='card-body'>" .
         "<h5 class='card-title'>" . $row['product_name'] . "</h5>" .
         "<p class='card-text'>" . htmlspecialchars(limit_text($row['product_sd'], 10)) . "</p>" .
@@ -56,7 +58,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         "<div class = 'card_container content col-lg-3 col-md-6 col-sm-6 col-12 active'>" .
         "<a href='productdetails.php?id=" . htmlspecialchars($row['product_id']) . "'>" .
         "<div class='card h-100'>" .
-        "<img class='card-img-top' src='images/barebone/" .  $image_name . ".jpg' alt='Card image cap' loading='lazy'>" .
+        "<img class='card-img-top' src='images/barebone/" .  htmlspecialchars($image_name) . ".jpg' alt='Card image cap' loading='lazy'>" .
         "<div class='card-body'>" .
         "<h5 class='card-title'>" . htmlspecialchars($row['product_name']) . "</h5>" .
         "<p class='card-text'>" . htmlspecialchars(limit_text($row['product_sd'], 10)) . "</p>" .

@@ -1,7 +1,6 @@
 <?php
 session_start();
 include "sessions/sessiontimeout.php";
-#header("Content-Security-Policy: default-src 'self'; img-src 'self' https://mechkeys.ddns.net/ script-src 'self' https://mechkeys.ddns.net/;");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,9 +13,8 @@ include "sessions/sessiontimeout.php";
         <?php include "components/nav.inc.php"; ?>
 
         <div class="category-banner-container">
-                <img src="images/banner/barebone.jpg" class="category-banner" alt="Switches Category Banner">
-            </div>
-        <body>
+            <img src="images/banner/barebone.jpg" class="category-banner" alt="Switches Category Banner">
+        </div>
         
         <h1 class="title">Barebone</h1>
 

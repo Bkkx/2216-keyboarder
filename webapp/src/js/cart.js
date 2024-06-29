@@ -13,34 +13,47 @@ function fetchCartTableData(table, columns) {
 
 fetchCartTableData('product', 'product_id, product_name, product_cost, product_sd, product_quantity, category_name');
 
-function increaseCount(a, b) {
-    var input = b.previousElementSibling;
+function increaseCount(event, element) {
+    var input = element.previousElementSibling;
+    var max = parseInt(input.getAttribute('max'), 10);
     var value = parseInt(input.value, 10);
-    value = isNaN(value) ? 0 : value;
-    value++;
-    input.value = value;
+    value = isNaN(value) ? 1 : value;
+    if (value < max) {
+        input.value = value + 1;
+    }
 }
-function decreaseCount(a, b) {
-    var input = b.nextElementSibling;
+
+function decreaseCount(event, element) {
+    var input = element.nextElementSibling;
     var value = parseInt(input.value, 10);
     if (value > 1) {
-        value = isNaN(value) ? 0 : value;
-        value--;
-        input.value = value;
+        input.value = value - 1;
     }
 }
 
 function updateQuantity(product_id) {
-    var newQuantity = document.getElementById('num_item').value;
+    var hiddenInput = document.getElementById(product_id);
+    var parentContainer = hiddenInput.closest('.col-md-3');
+    var quantityInput = parentContainer.querySelector('input[type="number"][name="num_item"]');
+    var newQuantity = quantityInput.value;
+    if (newQuantity < 1 || newQuantity > parseInt(quantityInput.getAttribute('max'), 10) || isNaN(newQuantity)) { 
+        alert('Invalid quantity');
+        return;
+    }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'process/update_quantity.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // Handle response if needed
-            alert('Quantity updated successfully!');
-        }
-    };
-    xhr.send('product_id=' + product_id + '&new_quantity=' + newQuantity);
+    $.post('process/update_quantity.php', { product_id: product_id, new_quantity: newQuantity }, function(response) {
+        alert('Quantity updated successfully!');
+        fetchCartTableData('product', 'product_id, product_name, product_cost, product_sd, product_quantity, category_name');
+        location.reload();
+    });
+}
+
+function deleteItem(productId) {
+    if (confirm('Are you sure you want to delete this item?')) {
+        $.post('process/delete_item.php', { product_id: productId }, function(response) {
+            alert(response);
+            fetchCartTableData('product', 'product_id, product_name, product_cost, product_sd, product_quantity, category_name'); // Refresh the cart
+            location.reload();
+        });
+    }
 }
