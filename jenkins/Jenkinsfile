@@ -13,7 +13,8 @@ pipeline {
 
         stage('Deploy Web Application') {
             steps {
-                sh 'docker compose down webapp'
+                sh 'docker compose stop webapp'
+                sh 'docker-compose rm -f webapp'
                 sh 'docker compose up -d webapp'
             }
         }     
