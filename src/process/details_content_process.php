@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 //table name
 $table_name = $_GET['table'];
 //columns name
@@ -20,42 +18,59 @@ $conn = new mysqli(
         $config['dbname']
 );
 
-// Retrieve data from database based on table name and column names
-$stmt = mysqli_prepare($conn, "SELECT $columns FROM $table_name INNER JOIN category ON $table_name.category_id = category.category_id WHERE $table_name.product_id = $productid ");
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+if ($conn->connect_error) {
+    $_SESSION['errorMsg'] = "Connection failed: " . $conn->connect_error;
+    header("Location: ../productdetails.php");
+    exit();
+}
+
+
+// Prepare the SQL statement to prevent SQL injection
+$query = sprintf("SELECT %s FROM %s INNER JOIN category ON %s.category_id = category.category_id WHERE %s.product_id = ?", 
+    $conn->real_escape_string($columns), 
+    $conn->real_escape_string($table_name),
+    $conn->real_escape_string($table_name),
+    $conn->real_escape_string($table_name)
+);
+
+$stmt = $conn->prepare($query);
+$stmt->bind_param('i', $productid);
+$stmt->execute();
+$result = $stmt->get_result();
+
 
 // Display data in Cards Item
-while ($row = mysqli_fetch_assoc($result)) {
-    $image_name = strtolower($row['category_name'] . '/' . str_replace(' ', '', $row[$table_name . '_name']));
+while ($row = $result->fetch_assoc()) {
+    $image_name = strtolower($row['category_name'] . '/' . htmlspecialchars(str_replace(' ', '', $row[$table_name . '_name'])));
     echo
-    "<a class='back-button' href='".str_replace('_', ' ', $row['category_name']).".php'>Back To " . ucfirst(str_replace('_', ' ', $row['category_name'])) . " Page</a>".
+    "<a class='back-button' href='" . htmlspecialchars(str_replace('_', ' ', $row['category_name'])).".php'>Back To " . htmlspecialchars(ucfirst(str_replace('_', ' ', $row['category_name']))) . " Page</a>".
     "<div id='product-details' class='details-container'>" .
-    "<div class = 'card_container content row row-cols-3 g-3' data-category='" . str_replace('_', ' ', $row['category_name']) . "'>" .
+    "<div class = 'card_container content row row-cols-3 g-3' data-category='" . htmlspecialchars(str_replace('_', ' ', $row['category_name'])) . "'>" .
     "<div class='col-lg-6 col-md-6 col-sm-12 col-12 mt-0 p-0'>" .
     "<div class='product-image'>" .
-    "<img class='card-img-top' src='images/" . $image_name . ".jpg' alt='Card image cap' loading='lazy'>" .
+    "<img class='card-img-top' src='images/" . htmlspecialchars($image_name) . ".jpg' alt='Card image cap' loading='lazy'>" .
     "</div>" .
     "</div>" .
     "<div class='col-lg-6 col-md-6 col-sm-12 col-12 mt-0 p-0'>" .
     "<div class='product-information'>" .
-    "<h5 class='card-title'>" . $row[$table_name . '_name'] . "</h5>" .
-    "<p class='card-text'>" . $row[$table_name . '_sd'] . "</p><br>" .
+    "<h5 class='card-title'>" . htmlspecialchars($row[$table_name . '_name']) . "</h5>" .
+    "<p class='card-text'>" . htmlspecialchars($row[$table_name . '_sd']) . "</p><br>" .
     "<strong>Item Description:</strong><br>" .
-    "<p class='card-description'>" . $row[$table_name . '_ld'] . "</p>" .
-    "<p class='card-price'><strong>SGD$" . limit_text($row[$table_name . '_cost'], 10) . "</strong></p>" .
+    "<p class='card-description'>" . htmlspecialchars($row[$table_name . '_ld']) . "</p>" .
+    "<p class='card-price'><strong>SGD$" . htmlspecialchars(limit_text($row[$table_name . '_cost'], 10)) . "</strong></p>" .
     "<p class='card-text'>" .
     "<form action='process/addcart_process.php' method='post'>" .
     "<input type='hidden' id='productid' name='productid' value='$productid'>" .
+    "<input type='hidden' id='stock' name='stock' value=" . htmlspecialchars($row[$table_name . '_quantity']) . "'>" .
     "<div class = 'counter'>" .
     "<span class = 'down' onClick ='decreaseCount(event, this)'>-</span>" .
-    "<input name='num_item' id='num_item' type = 'number' value = '1'  maxlength='2' max='" . $row[$table_name . '_quantity'] . "'>" .
+    "<input name='num_item' id='num_item' type = 'number' value = '1'  maxlength='2' max='" . htmlspecialchars($row[$table_name . '_quantity']) . "' min='1'>" .
     "<span class = 'up' onClick = 'increaseCount(event, this)'>+</span>" .
     "</div >" .
     "<button class='addtocart mt-2' type='submit'>Add to Cart</button>" .
     "</form>" .
-    "<p>Stock: " . $row[$table_name . '_quantity'] . "</p>" .
-    "<p class='card-category'>Category: " . str_replace('_', ' ', $row['category_name']) . "</p>" .
+    "<p>Stock: " . htmlspecialchars($row[$table_name . '_quantity']) . "</p>" .
+    "<p class='card-category'>Category: " . htmlspecialchars(str_replace('_', ' ', $row['category_name'])) . "</p>" .
     "</div>";
 }
 

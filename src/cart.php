@@ -14,6 +14,11 @@ include "sessions/sessiontimeout.php";
     <body>
         <?php
         include "components/nav.inc.php";
+        if (isset($_SESSION['errorMsg'])) {
+            echo "<script>alert('" . $_SESSION['errorMsg'] . "');</script>";
+            // Clear the error message after displaying it
+            unset($_SESSION['errorMsg']);
+        }
         ?>
         <main class="container mt-3">
             <h1> Shopping Cart</h1>

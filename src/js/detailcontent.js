@@ -21,19 +21,20 @@ $(document).ready(function () {
     fetchTableDataProduct('product', 'product_id, product_name, product_cost, product_sd, product_ld, product_quantity, category_name');
 });
 
-function increaseCount(a, b) {
-    var input = b.previousElementSibling;
+function increaseCount(event, element) {
+    var input = element.previousElementSibling;
+    var max = parseInt(input.getAttribute('max'), 10);
     var value = parseInt(input.value, 10);
-    value = isNaN(value) ? 0 : value;
-    value++;
-    input.value = value;
+    value = isNaN(value) ? 1 : value;
+    if (value < max) {
+        input.value = value + 1;
+    }
 }
-function decreaseCount(a, b) {
-    var input = b.nextElementSibling;
+
+function decreaseCount(event, element) {
+    var input = element.nextElementSibling;
     var value = parseInt(input.value, 10);
     if (value > 1) {
-        value = isNaN(value) ? 0 : value;
-        value--;
-        input.value = value;
+        input.value = value - 1;
     }
 }
