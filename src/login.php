@@ -21,7 +21,7 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                 <div class="logincontainer row-cols-3 g-3">
                     <div class="left col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="login-text">
-                            <h2>New Keyboarder??</h2>
+                            <h2>New Keyboarder</h2>
                             <p>Start your DIY Journey with us!</p>
                             <a href="register.php" class="btn">Register</a>
                         </div>
@@ -44,7 +44,7 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <p>
                                     <label for="customer_email">Email: <span>*</span></label>
-                                    <input type="text" id="customer_email" name="customer_email" placeholder="Enter Email" required>
+                                    <input type="email" id="customer_email" name="customer_email" placeholder="Enter Email" required>
                                 </p>
                                 <p>
                                     <label for="customer_pwd">Password: <span>*</span></label>

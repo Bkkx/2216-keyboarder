@@ -23,10 +23,7 @@ function display_errorMsg($message) {
 
 // Check connection
 if ($conn->connect_error) {
-    // die("Connection failed: " . $conn->connect_error);
     display_errorMsg("Unable to connect to the service, please try again later.");
-    header("Location: ../register.php");
-    exit();
 }
 
 
