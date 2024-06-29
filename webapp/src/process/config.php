@@ -1,9 +1,9 @@
 <?php
 // config.php
 return [
-    'servername' => 'localhost',  // or your server name
+    'servername' => 'mysql-active',  // or your server name
     'username' => 'root',
-    'password' => 'admin',
+    'password' => 'jG31"8|y5{:Mj4o+Ga?~',
     'dbname' => 'keyboarder'
 ];
 ?>
