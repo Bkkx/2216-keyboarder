@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include "sessiontimeout.php";
+include "sessions/sessiontimeout.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -159,8 +159,14 @@ function sendEmail($date) {
     $mail->addAddress($email); // Send to the Customer's email
     $mail->Subject = ("$subject");
     $mail->Body = $message;
-    $mail->send();
-    header("Location: ../response.php");
+    
+    if ($mail->send()) {
+        header("Location: ../response.php");
+        exit();
+    } else {
+        echo "Email sending failed: " . $mail->ErrorInfo;
+    }
+    
 }
 
 function getCustomerEmail() {
@@ -181,7 +187,8 @@ function getCustomerEmail() {
     } else {
         //prepare order add 
         $customer_id = $_SESSION['customer_id'];
-        $stmt = mysqli_prepare($conn, "SELECT customer_email FROM customer WHERE customer_id = $customer_id");
+        $stmt = mysqli_prepare($conn, "SELECT customer_email FROM customer WHERE customer_id = ?");
+        $stmt->bind_param("s", $customer_id);
 
         // Execute the statement
         mysqli_stmt_execute($stmt);

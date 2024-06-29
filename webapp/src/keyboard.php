@@ -13,9 +13,8 @@ include "sessions/sessiontimeout.php";
         <?php include "components/nav.inc.php"; ?>
 
         <div class="category-banner-container">
-                <img src="images/banner/barebone.jpg" class="category-banner" alt="Switches Category Banner">
-            </div>
-        <body>
+            <img src="images/banner/barebone.jpg" class="category-banner" alt="Switches Category Banner">
+        </div>
         
         <h1 class="title">Keyboards</h1>
 

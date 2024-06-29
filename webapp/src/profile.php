@@ -11,7 +11,10 @@ $conn = new mysqli($config['servername'], $config['username'], $config['password
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // die("Connection failed: " . $conn->connect_error);
+    $_SESSION['errorMsg'][] = "Connection failed: " . $conn->connect_error;
+    header("Location: profile.php"); // Redirect to an error page or handle the error as needed
+    exit();
 }
 
 // Fetch customer data using customer_id from session
@@ -30,6 +33,9 @@ $order_stmt->bind_param("i", $customer_id);
 $order_stmt->execute();
 $order_result = $order_stmt->get_result();
 $orders = $order_result->fetch_all(MYSQLI_ASSOC);
+
+// Check for error messages
+$errorMessages = isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : [];
 ?>
 
 <html lang="en">
@@ -76,32 +82,41 @@ $orders = $order_result->fetch_all(MYSQLI_ASSOC);
             <div class="profile-container">
                 <div class="profile-header">
                     <h2>Your Profile</h2>
+                    <?php if (!empty($errorMessages)): ?>
+                        <div class="error-messages">
+                            <?php foreach ($errorMessages as $message): ?>
+                                <p><?php echo htmlspecialchars($message); ?></p>
+                            <?php endforeach;
+                            unset($_SESSION['errorMsg']);
+                            ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="profile-form">
                     <form action="process/process_profile.php" method="post">
                         <div class="form-group">
                             <label for="customer_fname">First Name:</label>
-                            <input type="text" id="customer_fname" name="customer_fname" value="<?php echo $customer['customer_fname']; ?>" required>
+                            <input type="text" id="customer_fname" name="customer_fname" value="<?php echo htmlspecialchars($customer['customer_fname']); ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label for="customer_lname">Last Name:</label>
-                            <input type="text" id="customer_lname" name="customer_lname" value="<?php echo $customer['customer_lname']; ?>" required>
+                            <input type="text" id="customer_lname" name="customer_lname" value="<?php echo htmlspecialchars($customer['customer_lname']); ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label for="customer_email">Email:</label>
-                            <input type="email" id="customer_email" name="customer_email" value="<?php echo $customer['customer_email']; ?>" required readonly>
+                            <input type="email" id="customer_email" name="customer_email" value="<?php echo htmlspecialchars($customer['customer_email']); ?>" required readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="customer_address">Address:</label>
-                            <input type="text" id="customer_address" name="customer_address" value="<?php echo $customer['customer_address']; ?>" required>
+                            <input type="text" id="customer_address" name="customer_address" value="<?php echo htmlspecialchars($customer['customer_address']); ?>" required>
                         </div>
 
                         <div class="form-group">
                             <label for="customer_number">Phone Number:</label>
-                            <input type="tel" id="customer_number" name="customer_number" value="<?php echo $customer['customer_number']; ?>" required>
+                            <input type="tel" id="customer_number" name="customer_number" value="<?php echo htmlspecialchars($customer['customer_number']); ?>" required>
                         </div>
 
                         <div class="form-group">
@@ -141,11 +156,11 @@ $orders = $order_result->fetch_all(MYSQLI_ASSOC);
                             <tbody>
                                 <?php foreach ($orders as $order): ?>
                                     <tr>
-                                        <td><?php echo $order['order_id']; ?></td>
-                                        <td><?php echo $order['product_id']; ?></td>
-                                        <td><?php echo $order['order_quantity']; ?></td>
-                                        <td><?php echo $order['order_tracking_no']; ?></td>
-                                        <td><?php echo $order['order_status']; ?></td>
+                                        <td><?php echo htmlspecialchars($order['order_id']); ?></td>
+                                        <td><?php echo htmlspecialchars($order['product_id']); ?></td>
+                                        <td><?php echo htmlspecialchars($order['order_quantity']); ?></td>
+                                        <td><?php echo htmlspecialchars($order['order_tracking_no']); ?></td>
+                                        <td><?php echo htmlspecialchars($order['order_status']); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
