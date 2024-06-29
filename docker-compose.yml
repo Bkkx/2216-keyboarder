@@ -25,24 +25,11 @@ services:
       - "JAVA_OPTS=-Dhttp.proxyHost=mechkeys.ddns.net -Dhttp.proxyPort=8888 -Dhttps.proxyHost=mechkeys.ddns.net -Dhttps.proxyPort=8888"      # Adjust as needed
       - "JENKINS_OPTS=--httpPort=8080"  # External URL
 
-
-
-
-  frontend:
-    build: frontend
-    container_name: frontend
-    volumes:
-      - ./src:/var/www/html
+  webapp:
+    build: ./webapp
+    container_name: webapp
     ports:
       - "80"
-
-  backend:
-    build: ./backend
-    container_name: backend
-    volumes:
-      - ./src:/var/www/html
-    ports:
-      - "9000"
       
   mysql-active:
     image: mysql/mysql-server:latest
