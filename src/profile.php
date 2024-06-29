@@ -3,36 +3,8 @@ session_start();
 include "components/essential.inc.php";
 include "components/nav.inc.php";
 
-// Include the config file
-$config = include('process/config.php');
-
-// Create database connection
-$conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-
-// Check connection
-if ($conn->connect_error) {
-    // die("Connection failed: " . $conn->connect_error);
-    $_SESSION['errorMsg'][] = "Connection failed: " . $conn->connect_error;
-    header("Location: profile.php"); // Redirect to an error page or handle the error as needed
-    exit();
-}
-
-// Fetch customer data using customer_id from session
-$customer_id = $_SESSION['customer_id'];
-$sql = "SELECT * FROM keyboarder.customer WHERE customer_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $customer_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$customer = $result->fetch_assoc();
-
-// Fetch orders for the customer
-$order_sql = "SELECT * FROM `order` WHERE customer_id = ?";
-$order_stmt = $conn->prepare($order_sql);
-$order_stmt->bind_param("i", $customer_id);
-$order_stmt->execute();
-$order_result = $order_stmt->get_result();
-$orders = $order_result->fetch_all(MYSQLI_ASSOC);
+// Include the process to fetch profile and order data
+include "process/process_profile_order_data.php";
 
 // Check for error messages
 $errorMessages = isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : [];
@@ -42,30 +14,7 @@ $errorMessages = isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : [];
     <head>
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/profile.css">
-        <style>
-            .form-group {
-                margin-bottom: 20px;
-            }
-            #passwordFields {
-                display: none;
-            }
-            .orders-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-            }
-            .orders-table th, .orders-table td {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-            .orders-table th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #102C57;
-                color: white;
-            }
-        </style>
+        
         <script>
             function togglePasswordFields() {
                 var passwordFields = document.getElementById("passwordFields");
@@ -134,7 +83,7 @@ $errorMessages = isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : [];
                             <input type="password" id="confirm_pwd" name="confirm_pwd" placeholder="Confirm new password">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top: 20px;">
                             <input type="submit" value="Update Profile">
                         </div>
                     </form>
@@ -174,9 +123,3 @@ $errorMessages = isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : [];
         <?php include "components/footer.inc.php"; ?>
     </body>
 </html>
-
-<?php
-$stmt->close();
-$conn->close();
-$order_stmt->close();
-?>

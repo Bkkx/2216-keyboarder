@@ -72,3 +72,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     color: #ffffff;
     box-shadow: inset 800px 0 0 0 #44c7f5;
 }
+
+.form-group {
+    margin-bottom: 20px;
+}
+#passwordFields {
+    display: none;
+}
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.orders-table th, .orders-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.orders-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #102C57;
+    color: white;
+}
