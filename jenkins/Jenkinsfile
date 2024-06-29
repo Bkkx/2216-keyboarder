@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+
+
+        stage('Build Web Application') {
+            steps {
+                sh 'docker compose build webapp'
+            }
+        }
+
+
+        stage('Deploy Web Application') {
+            steps {
+                sh 'docker compose down webapp'
+                sh 'docker compose up -d webapp'
+            }
+        }     
+    }
+
+    post {
+        success {
+            echo 'Success!'
+        }
+        
+        always {
+            // Remove all intermediate images and containers
+            sh 'docker system prune -f'
+        }
+    }
+}
