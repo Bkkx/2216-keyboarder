@@ -1,6 +1,11 @@
 <?php
 session_start();
 include "sessions/sessiontimeout.php";
+//Check if user is logged in and has admin role
+if ($_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit;
+}
 
 ?>
 <html lang="en">
@@ -68,5 +73,5 @@ include "sessions/sessiontimeout.php";
         include "components/footer.inc.php";
         ?>
     </body>
-    <script defer src="js/indexcontent.js"></script>
+    <!-- <script defer src="js/indexcontent.js"></script> -->
 </html>

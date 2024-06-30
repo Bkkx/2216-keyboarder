@@ -37,7 +37,7 @@
                             <h2>Register</h2>
                             <!-- Display error messages if there are any -->
                             <?php
-                            if (isset($_SESSION['errorMsg']) && !empty($_SESSION['errorMsg']) && count($_SESSION['errorMsg']) > 0) {
+                            if (isset($_SESSION['errorMsg']) && is_array($_SESSION['errorMsg']) && count($_SESSION['errorMsg']) > 0) {
                                 echo '<div class="errorMsg">';
                                 foreach ($_SESSION['errorMsg'] as $message) {
                                     echo "<p class='error'>" . htmlspecialchars($message) . "</p>";

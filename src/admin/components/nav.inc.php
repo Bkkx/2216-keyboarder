@@ -10,9 +10,9 @@
             if (@$_SESSION['role'] == "admin") {
                 ?>
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link active" href="index.php">Home</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Manage List</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
