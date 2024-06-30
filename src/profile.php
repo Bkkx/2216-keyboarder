@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 include "components/essential.inc.php";
 include "components/nav.inc.php";
 
@@ -43,6 +44,8 @@ $errorMessages = isset($_SESSION['errorMsg']) ? $_SESSION['errorMsg'] : [];
                 </div>
                 <div class="profile-form">
                     <form action="process/process_profile.php" method="post">
+                        <!-- Include the CSRF token in the form -->
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                         <div class="form-group">
                             <label for="customer_fname">First Name:</label>
                             <input type="text" id="customer_fname" name="customer_fname" value="<?php echo htmlspecialchars($customer['customer_fname']); ?>" required>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "sessions/sessiontimeout.php";
-//Check if user is logged in and has admin role
+//Check if user and has admin role
 if ($_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;

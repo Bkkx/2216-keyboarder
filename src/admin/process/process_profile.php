@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+//Check if user and has admin role
+if ($_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit;
+}
+
 // Include the config file
 $config = include('config.php');
 
@@ -19,8 +25,6 @@ function display_errorMsg($message) {
 if ($conn->connect_error) {
     // die("Connection failed: " . $conn->connect_error);
     display_errorMsg("Unable to connect to the service, please try again later.");
-    header("Location: ../profile.php");
-    exit();
 }
 
 // Retrieve form data
@@ -44,6 +48,14 @@ if ($change_password === "yes" && ($admin_pwd !== $admin_confirm_pwd)) {
     display_errorMsg( "Passwords do not match.");
 }
 
+// Validate CSRF token
+if (!isset($_POST['csrf_token'], $_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    display_errorMsg('CSRF token mismatch');
+}
+
+// Unset the CSRF token now that it's been checked
+unset($_SESSION['csrf_token']);
+
 // If there are errors, redirect back to registration
 if (!empty($_SESSION['errorMsg'])) {
     header("Location: ../profile.php");
@@ -60,22 +72,16 @@ if ($change_password === "yes") {
     } else {
         display_errorMsg("Error updating profile: " . $stmt->error);
     }
-} else {
-    $sql = "SELECT admin_email FROM keyboarder.admin WHERE admin_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $admin_id);
-    if ($stmt->execute()) {
-        $stmt->bind_result($admin_email);
-        $stmt->fetch();
-        $_SESSION['successMsg'] = "Email fetched successfully.";
-    } else {
-        display_errorMsg("Error fetching email: " . $stmt->error);
-    }
-}
 
+    if ($stmt->execute()) {
+        $_SESSION['successMsg'] = "Profile updated successfully.";
+    } else {
+        display_errorMsg("Error updating profile: " . $stmt->error);
+    }
+    $stmt->close(); // Make sure to close the statement
+} 
 
 // Close the connection
-$stmt->close();
 $conn->close();
 
 header("Location: ../profile.php");

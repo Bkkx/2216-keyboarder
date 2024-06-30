@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+//Check if user and has customer role
+if ($_SESSION['role'] !== 'customer') {
+    header('Location: login.php');
+    exit;
+}
+
 // Include the config file
 $config = include('config.php');
 
@@ -19,8 +25,6 @@ function display_errorMsg($message) {
 if ($conn->connect_error) {
     // die("Connection failed: " . $conn->connect_error);
     display_errorMsg("Unable to connect to the service, please try again later.");
-    header("Location: ../profile.php");
-    exit();
 }
 
 // Retrieve form data
@@ -73,6 +77,14 @@ if ($change_password === "yes" && strlen($customer_pwd) < 8) {
 if ($change_password === "yes" && ($customer_pwd !== $confirm_pwd)) {
     display_errorMsg( "Passwords do not match.");
 }
+
+// Validate CSRF token
+if (!isset($_POST['csrf_token'], $_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    display_errorMsg('CSRF token mismatch');
+}
+
+// Unset the CSRF token now that it's been checked
+unset($_SESSION['csrf_token']);
 
 // If there are errors, redirect back to registration
 if (!empty($_SESSION['errorMsg'])) {
