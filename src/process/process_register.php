@@ -1,9 +1,14 @@
 <?php
 // Start session
 session_start();
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../../vendor/autoload.php';
+
 
 // Include the config file
-$config = include('config.php');
+$config = include ('config.php');
 
 // Create database connection
 $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
@@ -13,7 +18,8 @@ $response = $_POST['recaptcha_response'];
 $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
 $responseData = json_decode($verify);
 
-function display_errorMsg($message) {
+function display_errorMsg($message)
+{
     if (!isset($_SESSION['errorMsg'])) {
         $_SESSION['errorMsg'] = [];
     }
@@ -26,6 +32,67 @@ if ($conn->connect_error) {
     display_errorMsg("Unable to connect to the service, please try again later.");
 }
 
+function generateVerificationCode($length = 6)
+{
+    if ($length <= 0) {
+        throw new InvalidArgumentException('Length must be a positive integer.');
+    }
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $code = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $code .= $characters[random_int(0, $charactersLength - 1)];
+    }
+
+    return $code;
+}
+
+function sendVerificationEmail($verificationCode, $customer_email, $customer_fname)
+{
+    $mail = new PHPMailer(true);
+    try {
+
+        $mail->IsSMTP();
+
+        //        $mail->SMTPDebug = 2;
+        $mail->SMTPAuth = TRUE;
+        $mail->SMTPSecure = "tls";
+        $mail->Port = 587;
+        $mail->Host = "smtp.gmail.com";
+        $mail->Username = "keyboarderweb@gmail.com";
+        $mail->Password = "pjccovdqzecxrhxl";
+
+        $mail->IsHTML(true);
+        $mail->AddAddress($customer_email);
+        $mail->SetFrom("keyboarderweb@gmail.com");
+        $mail->Subject = 'Get Verifiedat Keyboarder!';
+        $mail->Body = "Dear $customer_fname,\n
+
+            Welcome to KeyBoarder!\n\n
+
+            Thank you for joining us. We are excited to have you as a part of our community.\n
+
+            To complete your registration, please use the verification code below:\n
+
+            Verification Code: $verificationCode\n
+
+            If you did not sign up for this account, please ignore this email.\n\n
+
+            Best regards,\n
+            The KeyBoarder Team
+            ";
+
+
+
+        $mail->send();
+        // header("location: contact.php#form-details");
+        echo "done bish";
+    } catch (Exception $e) {
+        // header("location: contact.php#form-details");
+        display_errorMsg($e->getMessage());
+    }
+}
 
 // Retrieve and sanitize form data
 $customer_fname = filter_input(INPUT_POST, 'customer_fname', FILTER_SANITIZE_STRING);
@@ -39,7 +106,8 @@ $customer_points = filter_input(INPUT_POST, 'customer_points', FILTER_SANITIZE_N
 $customer_join_date = filter_input(INPUT_POST, 'customer_join_date', FILTER_SANITIZE_STRING);
 
 // Regex Patterns
-$pattern_name = "/^[a-zA-Z\s'-]+$/";;
+$pattern_name = "/^[a-zA-Z\s'-]+$/";
+;
 $pattern_address = "/^[a-zA-Z0-9\s,.'-]+$/";
 $pattern_number = "/^\d{8}$/";
 
@@ -106,11 +174,16 @@ if ($responseData->success && $responseData->score < 0.5) {  // Choose your thre
 // Proceed with registration if no errors
 if (empty($_SESSION['errorMsg'])) {
     $hashed_pwd = password_hash($customer_pwd, PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO keyboarder.customer (customer_fname, customer_lname, customer_email, customer_address, customer_number, customer_password, customer_points, customer_joindate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssisss", $customer_fname, $customer_lname, $customer_email, $customer_address, $customer_number, $hashed_pwd, $customer_points, $customer_join_date);
+
+    $code = generateVerificationCode(6);
+    sendVerificationEmail($code,$customer_email, $customer_fname);
+    $validated = 0;
+    $stmt = $conn->prepare("INSERT INTO keyboarder.customer (customer_fname, customer_lname, customer_email, customer_address, customer_number, customer_password, customer_points, customer_joindate, customer_validation, customer_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssisssis", $customer_fname, $customer_lname, $customer_email, $customer_address, $customer_number, $hashed_pwd, $customer_points, $customer_join_date, $validated, $code);
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Registration successful. You can now log in.";
-        header("Location: ../login.php");
+        $_SESSION['customer_email'] = $customer_email;
+        header("Location: ../verify.php"); 
         exit();
     } else {
         display_errorMsg("Registration failed, please try again later.");
