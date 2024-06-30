@@ -60,12 +60,12 @@ if (!preg_match($pattern_number, $customer_number)) {
     display_errorMsg("Phone number must be exactly 8 digits.");
 }
 
-if ($change_password === "yes" && (isset($customer_pwd))) {
+if ($change_password === "yes" && (empty($customer_pwd) || empty($confirm_pwd))) {
     display_errorMsg("Password fields cannot be empty.");
 }
 
 // Validate password
-if ($change_password === "yes" && !isset($customer_pwd) && strlen($customer_pwd) < 8) {
+if ($change_password === "yes" && strlen($customer_pwd) < 8) {
     display_errorMsg("Password must be at least 8 characters long.");
 }
 
@@ -94,13 +94,11 @@ if ($change_password === "yes") {
 
 if ($stmt->execute()) {
     $_SESSION['successMsg'] = "Profile updated successfully.";
-    header("Location: ../profile.php");
-    exit();
 } else {
-    display_errorMsg("Error updating profie: " . $stmt->error);
+    display_errorMsg("Error updating profile: " . $stmt->error);
 }
 
-// Close the connection
+header("Location: ../profile.php");
 $stmt->close();
 $conn->close();
 ?>
