@@ -3,14 +3,13 @@
 if (session_status() === PHP_SESSION_NONE) {
     $cookieParams = session_get_cookie_params();
     session_set_cookie_params([
-        'lifetime' => $cookieParams["lifetime"],
+        'lifetime' => 1800,
         'path' => $cookieParams["path"],
         'domain' => $cookieParams["domain"],
         'secure' => true,  // Ensure cookies are sent over HTTPS
         'httponly' => true,  // Make cookies accessible only through the HTTP protocol
         'samesite' => 'Lax'  // Mitigate the risk of cross-origin information leakage
     ]);
-    echo "Session cookie params set.<br>";
     session_start();
 }
 
@@ -30,7 +29,12 @@ if (isset($_SESSION["token_time"]) && (time() - $_SESSION["token_time"] > $inact
     session_destroy(); // Destroy session data in storage
 
     // Clear the session cookie
-    setcookie(session_name(), '', time() - 42000, '/', '', true, true);
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]);
+    }
 
     header("Location: login.php");
     exit();
