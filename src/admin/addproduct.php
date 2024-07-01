@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if ($_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit;
+}
+
 include "sessions/sessiontimeout.php";
 ?>
 <html lang="en">
