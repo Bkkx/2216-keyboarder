@@ -31,17 +31,15 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                             <h2>Login</h2>
                             <?php
                             if (isset($_SESSION['errorMsg'])) {
-                                echo "<div id='loginMessage' class='errorMsg'>"; 
+                                echo "<div class='errorMsg'>"; 
                                 foreach ($_SESSION['errorMsg'] as $message) {
                                     echo "<p class='error'>" . htmlspecialchars($message) . "</p>";
                                 }
                                 echo "</div>";
                                 unset($_SESSION['errorMsg']); // Clear the error message after displaying it
-                            } else {
-                                echo "<div id='loginMessage'></div>"; // Add this line to include the div for messages
                             }
                             ?>
-                            <form id="loginForm" action="process/process_login.php" method="post">
+                            <form action="process/process_login.php" method="post">
                                 <!-- Include the CSRF token in the form -->
                                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <p>
@@ -65,6 +63,5 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         <?php
         include "components/footer.inc.php";
         ?>
-        <script defer src="js/login.js"></script>
     </body>
 </html>
