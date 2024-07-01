@@ -178,7 +178,7 @@ if (empty($_SESSION['errorMsg'])) {
     $code = generateVerificationCode(6);
     sendVerificationEmail($code,$customer_email, $customer_fname);
     $validated = 0;
-    $stmt = $conn->prepare("INSERT INTO keyboarder.customer (customer_fname, customer_lname, customer_email, customer_address, customer_number, customer_password, customer_points, customer_joindate, customer_validation, customer_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO keyboarder.customer (customer_fname, customer_lname, customer_email, customer_address, customer_number, customer_password, customer_points, customer_joindate, customer_verification, customer_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssisssis", $customer_fname, $customer_lname, $customer_email, $customer_address, $customer_number, $hashed_pwd, $customer_points, $customer_join_date, $validated, $code);
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Registration successful. You can now log in.";

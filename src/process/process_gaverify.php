@@ -4,17 +4,19 @@
 session_start();
 
 // Include the config file
-$config = include('config.php');
+$config = include ('config.php');
+require '../../vendor/autoload.php';
+use PHPGangsta_GoogleAuthenticator;
 
 // Create database connection
 $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
 
-function display_errorMsg($message) {
+function display_errorMsg($message)
+{
     if (!isset($_SESSION['errorMsg'])) {
         $_SESSION['errorMsg'] = [];
     }
     $_SESSION['errorMsg'][] = $message;
-
 }
 
 // Check connection
@@ -28,9 +30,9 @@ $customer_code = filter_input(INPUT_POST, 'customer_code', FILTER_SANITIZE_EMAIL
 // Validate Email
 
 // Validate password
-if (strlen($customer_code) !==6) {
-    display_errorMsg('Invalid token length.');
-}
+// if (strlen($customer_code) !== 6) {
+//     display_errorMsg('Invalid token length.');
+// }
 
 $customer_email = $_SESSION['customer_email'];
 // Validate CSRF token
@@ -42,55 +44,55 @@ $customer_email = $_SESSION['customer_email'];
 // unset($_SESSION['csrf_token']);
 
 // Prepare SQL statement to avoid SQL injection
-if ($stmt = $conn->prepare("SELECT customer_code FROM keyboarder.customer WHERE customer_email = ?")) {
+if ($stmt = $conn->prepare("SELECT customer_gacode FROM keyboarder.customer WHERE customer_email = ?")) {
     $stmt->bind_param("s", $customer_email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     // Check if user exists
     if ($row = $result->fetch_assoc()) {
-        // Verify password
-        if ($customer_code == $row['customer_code']) {
-            // Set session variables and redirect to a secure page
-            if ($stmt = $conn->prepare("UPDATE keyboarder.customer SET customer_verification = ? WHERE customer_email = ?")) {
-                $verified = 1;
-                $stmt->bind_param("ss", $verified, $customer_email);
-                $stmt->execute();
-                
-                if ($stmt->affected_rows > 0) {
-                    echo "Customer details updated successfully.";
-                    header("Location: ../index.php");
-                } else {
-                    echo "No records updated";
-                    display_errorMsg('Something went wrong, please try again later.');
-                }
 
-                $stmt->close();
-            } else {
-                echo "Error preparing statement: " . $conn->error;
-            }
-            display_errorMsg('You have been verified! Please log in now!');
-            header("Location: ../qrcode.php");
+        $ga = new PHPGangsta_GoogleAuthenticator();
+        $encryption_key = 'shouldbesecureenoughright?'; // Use the same key used for encryption
+        $encrypted_secret = $row['customer_gacode'];
+        $secret = openssl_decrypt($encrypted_secret, 'aes-256-cbc', $encryption_key, 0, '1234567890123456');
+        $result = $ga->verifyCode($secret, $customer_code, 2); // 2 = 2*30sec clock tolerance
+
+        // Verify password
+        if ($result) {
+            // Set session variables and redirect to a secure page
+            $_SESSION['customer_email'] = $customer_email;
+            $_SESSION['token'] = bin2hex(random_bytes(32)); // Generate a new token
+            $_SESSION['token_time'] = time();
+            $_SESSION['role'] = "customer";
+            $_SESSION['customer_id'] = $row['customer_id'];
+            header("Location: ../index.php");
             exit();
+            } else {
+                // echo "Error preparing statement: " . $conn->error;
+                display_errorMsg('Please reenter the code!');
+                header("Location: ../gaverify.php");
+                exit();
+            }
         } else {
             // Handle when password is incorrect
             display_errorMsg('Incorrect email or password');
         }
     } else {
         // Handle no user found
-        echo $_SESSION['$customer_email'];
-        echo $customer_code;
-        echo "Error preparing statement: (" . $conn->errno . ") " . $conn->error;
+        // echo $_SESSION['$customer_email'];
+        // echo $customer_code;
+        // echo "Error preparing statement: (" . $conn->errno . ") " . $conn->error;
         display_errorMsg('Incorrect token');
         exit();
     }
     // Close the statement
     $stmt->close();
-}
+
 
 // If there are errors, redirect back to registration
 if (!empty($_SESSION['errorMsg'])) {
-    header("Location: ../verify.php");
+    header("Location: ../gaverify.php");
     exit();
 }
 

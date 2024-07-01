@@ -1,0 +1,77 @@
+<?php
+session_start();
+
+require '../vendor/autoload.php';
+
+$ga = new PHPGangsta_GoogleAuthenticator();
+
+// Generate a secret key for the user
+$secret = $ga->createSecret();
+
+// Generate the QR code URL
+$qrCodeUrl = $ga->getQRCodeGoogleUrl('Keyboarder', $secret);
+$encryption_key = 'shouldbesecureenoughright?'; // Use a secure key
+$encrypted_secret = openssl_encrypt($secret, 'aes-256-cbc', $encryption_key, 0, '1234567890123456');
+
+// Save $secret in the user's record in your database
+$_SESSION['GA_secret'] = $encrypted_secret
+// Display the QR code URL
+?>
+
+<?php
+include "sessions/sessiontimeout.php";
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+?>
+<html lang="en">
+    <head>
+        <?php
+        include "components/essential.inc.php";
+        ?>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/login_reg.css">
+    </head>
+
+    <body>
+        <?php
+        include "components/nav.inc.php";
+        ?>
+        <main class="container mt-5">
+            <div class="login">
+                <div class="logincontainer row-cols-3 g-3">
+                    <div class="right col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="login-form">
+                        <?php
+                            if (isset($_SESSION['errorMsg'])) {
+                                echo "<div class='errorMsg'>"; 
+                                foreach ($_SESSION['errorMsg'] as $message) {
+                                    echo "<p class='error'>" . htmlspecialchars($message) . "</p>";
+                                }
+                                echo "</div>";
+                                unset($_SESSION['errorMsg']); // Clear the error message after displaying it
+                            }
+                            ?>
+
+                            <h2>Scan this QR code with the Google Authenticator app to enable multi- Factor Authentication!</h2>
+                            <form action="process/qrcode_process.php" method="post">
+                                <!-- Include the CSRF token in the form -->
+                                <?php echo '<img src="'.$qrCodeUrl.'" />'; ?>
+
+                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                                <p>
+                                    <input type="hidden" id="qr_code" name="qr_code" value="1" required>
+                                </p>
+                                <div id="html_element"></div>
+                                <p>
+                                    <input type="submit" value="I have scanned the QR!">
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <?php
+        include "components/footer.inc.php";
+        ?>
+    </body>
+</html>

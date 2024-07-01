@@ -60,7 +60,7 @@ if ($stmt = $conn->prepare("SELECT customer_id, customer_password FROM keyboarde
             $_SESSION['token_time'] = time();
             $_SESSION['role'] = "customer";
             $_SESSION['customer_id'] = $row['customer_id'];
-            header("Location: ../index.php");
+            header("Location: ../gaverify.php");
             exit();
         } else {
             // Handle when password is incorrect
