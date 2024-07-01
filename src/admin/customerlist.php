@@ -2,10 +2,11 @@
 session_start();
 include "sessions/sessiontimeout.php";
 
-$_SESSION['token'] = $token;
-$_SESSION['token_time'] = time();
-$_SESSION['role'] = "admin"; //setting role of user session to customer. to verify is logged in and is user to make some website unaccessible
-$_SESSION['admin_id'] = 1;
+if ($_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit;
+}
+
 ?>
 <html lang="en">
     <head>
@@ -21,7 +22,7 @@ $_SESSION['admin_id'] = 1;
         include "components/nav.inc.php";
         ?>
         <main class="container">
-            <h1 class="display-4">User List</h1>
+            <h1 class="display-4">Customer List</h1>
             <div class="filter_panel">
             </div>
             <div class=" row row-cols-3 g-3">
@@ -36,5 +37,5 @@ $_SESSION['admin_id'] = 1;
         include "components/footer.inc.php";
         ?>
     </body>
-    <script defer src="js/userlist.js"></script>
+    <script defer src="js/customerlist.js"></script>
 </html>
