@@ -9,56 +9,75 @@ $config = include('config.php');
 // Create database connection
 $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
 
-// Ensure that errorMsg is an array ready to collect any error messages
-if (!isset($_SESSION['errorMsg'])) {
-    $_SESSION['errorMsg'] = [];
+function display_errorMsg($message) {
+    if (!isset($_SESSION['errorMsg'])) {
+        $_SESSION['errorMsg'] = [];
+    }
+    $_SESSION['errorMsg'][] = $message;
+
 }
 
 // Check connection
 if ($conn->connect_error) {
-    $_SESSION['errorMsg'][] = "Connection failed: " . $conn->connect_error;
-    header("Location: ../login.php");
-    exit();
+    display_errorMsg('Unable to connect to the service, please try again later.');
 }
 
 // Retrieve form data
-$customer_email = $_POST['customer_email'];
-$customer_pwd = $_POST['customer_pwd'];
+$customer_email = filter_input(INPUT_POST, 'customer_email', FILTER_SANITIZE_EMAIL);
+$customer_pwd = filter_input(INPUT_POST, 'customer_pwd', FILTER_SANITIZE_STRING) ;
+
+// Validate Email
+if (!filter_var($customer_email, FILTER_VALIDATE_EMAIL)) {
+    display_errorMsg('Invalid email format.');
+}
+
+// Validate password
+if (strlen($customer_pwd) < 8) {
+    display_errorMsg('Invalid password format.');
+}
 
 // Validate CSRF token
 if (!isset($_POST['csrf_token'], $_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    $_SESSION['errorMsg'][] = 'CSRF token mismatch.';
-    header("Location: ../login.php");
-    exit();
+    display_errorMsg('CSRF token mismatch');
 }
 
 // Unset the CSRF token now that it's been checked
 unset($_SESSION['csrf_token']);
 
-// Prepare and execute SQL statement
-$stmt = $conn->prepare("SELECT customer_id, customer_password FROM keyboarder.customer WHERE customer_email = ?");
-$stmt->bind_param("s", $customer_email);
-$stmt->execute();
-$result = $stmt->get_result();
+// Prepare SQL statement to avoid SQL injection
+if ($stmt = $conn->prepare("SELECT customer_id, customer_password FROM keyboarder.customer WHERE customer_email = ?")) {
+    $stmt->bind_param("s", $customer_email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-// Check if user exists
-if ($row = $result->fetch_assoc()) {
-    if (password_verify($customer_pwd, $row['customer_password'])) {
-         // Password hash matches the one stored in database, set session variables and redirect to a secure page
-        $_SESSION['customer_email'] = $row['customer_email'];
-        $_SESSION['token'] = $token;
-        $_SESSION['token_time'] = time();
-        $_SESSION['role'] = "customer"; //setting role of user session to customer. to verify is logged in and is user to make some website unaccessible
-        $_SESSION['customer_id'] = $row['customer_id'];
-        header("Location: ../index.php"); // Redirect to a secure page, e.g., dashboard.php
-        exit();
+    // Check if user exists
+    if ($row = $result->fetch_assoc()) {
+        // Verify password
+        if (password_verify($customer_pwd, $row['customer_password'])) {
+            // Set session variables and redirect to a secure page
+            $_SESSION['customer_email'] = $customer_email;
+            $_SESSION['token'] = bin2hex(random_bytes(32)); // Generate a new token
+            $_SESSION['token_time'] = time();
+            $_SESSION['role'] = "customer";
+            $_SESSION['customer_id'] = $row['customer_id'];
+            header("Location: ../index.php");
+            exit();
+        } else {
+            // Handle when password is incorrect
+            display_errorMsg('Incorrect email or password');
+        }
     } else {
-        // Invalid credentials
-        $_SESSION['errorMsg'][] = "Invalid email or password.";
-        header("Location: ../login.php");
-        exit();
+        // Handle no user found
+        display_errorMsg('Incorrect email or password');
     }
+    // Close the statement
+    $stmt->close();
+}
 
+// If there are errors, redirect back to registration
+if (!empty($_SESSION['errorMsg'])) {
+    header("Location: ../login.php");
+    exit();
 }
 
 // Close the connection

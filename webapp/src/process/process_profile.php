@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+//Check if user and has customer role
+if ($_SESSION['role'] !== 'customer') {
+    header('Location: login.php');
+    exit;
+}
+
 // Include the config file
 $config = include('config.php');
 
@@ -19,8 +25,6 @@ function display_errorMsg($message) {
 if ($conn->connect_error) {
     // die("Connection failed: " . $conn->connect_error);
     display_errorMsg("Unable to connect to the service, please try again later.");
-    header("Location: ../profile.php");
-    exit();
 }
 
 // Retrieve form data
@@ -60,12 +64,12 @@ if (!preg_match($pattern_number, $customer_number)) {
     display_errorMsg("Phone number must be exactly 8 digits.");
 }
 
-if ($change_password === "yes" && (isset($customer_pwd))) {
+if ($change_password === "yes" && (empty($customer_pwd) || empty($confirm_pwd))) {
     display_errorMsg("Password fields cannot be empty.");
 }
 
 // Validate password
-if ($change_password === "yes" && !isset($customer_pwd) && strlen($customer_pwd) < 8) {
+if ($change_password === "yes" && strlen($customer_pwd) < 8) {
     display_errorMsg("Password must be at least 8 characters long.");
 }
 
@@ -73,6 +77,14 @@ if ($change_password === "yes" && !isset($customer_pwd) && strlen($customer_pwd)
 if ($change_password === "yes" && ($customer_pwd !== $confirm_pwd)) {
     display_errorMsg( "Passwords do not match.");
 }
+
+// Validate CSRF token
+if (!isset($_POST['csrf_token'], $_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    display_errorMsg('CSRF token mismatch');
+}
+
+// Unset the CSRF token now that it's been checked
+unset($_SESSION['csrf_token']);
 
 // If there are errors, redirect back to registration
 if (!empty($_SESSION['errorMsg'])) {
@@ -94,13 +106,11 @@ if ($change_password === "yes") {
 
 if ($stmt->execute()) {
     $_SESSION['successMsg'] = "Profile updated successfully.";
-    header("Location: ../profile.php");
-    exit();
 } else {
-    display_errorMsg("Error updating profie: " . $stmt->error);
+    display_errorMsg("Error updating profile: " . $stmt->error);
 }
 
-// Close the connection
+header("Location: ../profile.php");
 $stmt->close();
 $conn->close();
 ?>

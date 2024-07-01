@@ -18,36 +18,38 @@ $conn = new mysqli(
 
 // Graceful handling of connection error
 if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
+    $_SESSION['errorMsg'] = "Connection failed: " . $conn->connect_error;
+    header("Location: ../index.php");
+    exit();
 }
 
-// Prepare the statement
-$stmt = mysqli_prepare($conn, "SELECT $columns FROM $table_name");
+// Prepare the statement with safe variables
+$query = "SELECT $columns FROM $table_name";
+if ($stmt = $conn->prepare($query)) {
+    // Execute the statement
+    $stmt->execute();
 
-// Execute the statement
-mysqli_stmt_execute($stmt);
+    // Get the result set
+    $result = $stmt->get_result();
 
-// Get the result set
-$result = mysqli_stmt_get_result($stmt);
+    // Display data in Cards Item
+    while ($row = $result->fetch_assoc()) {
+        $image_name = htmlspecialchars(strtolower($row['category_name'] . '/' . "home_card"));
+        echo "<div class='card_container col-lg-2 col-md-6 col-sm-6 col-12'>" .
+        "<a href='" . htmlspecialchars(strtolower($row[$table_name . '_name'])) .'.php' . "'>" .
+        "<div class='card h-100'>" .
+        "<img class='card-img-top' src='images/" . htmlspecialchars($image_name) . ".jpg' alt='Card image cap' loading='lazy'>" .
+        "<div class='card-body'>" .
+        "<h5 class='card-title text-center'>" . htmlspecialchars(ucfirst(str_replace('_', ' ', $row[$table_name . '_name']))) . "</h5>" .
+        "</div>" .
+        "</div>" .
+        "</a>" .
+        "</div>";
+    }
 
-// Display data in Cards Item
-while ($row = mysqli_fetch_assoc($result)) {
-
-    $image_name = htmlspecialchars(strtolower($row['category_name'] . '/' . "home_card"));
-    echo "<div class = 'card_container col-lg-2 col-md-6 col-sm-6 col-12'>" .
-    "<a href='" . htmlspecialchars(strtolower($row[$table_name . '_name'])) .'.php' . "'>" .
-    "<div class='card h-100'>" .
-    "<img class='card-img-top' src='images/" . $image_name . ".jpg' alt='Card image cap' loading='lazy'>" .
-    "<div class='card-body'>" .
-    "<h5 class='card-title text-center'>" . htmlspecialchars(ucfirst(str_replace('_', ' ', $row[$table_name . '_name']))) . "</h5>" .
-    "</div>" .
-    "</div>" .
-    "</a>" .
-    "</div>";
+    // Close the statement
+    $stmt->close();
 }
-
-// Close the statement
-mysqli_stmt_close($stmt);
 
 // Close the database connection
 mysqli_close($conn);
