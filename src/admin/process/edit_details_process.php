@@ -23,7 +23,8 @@ $conn = new mysqli(
 if ($conn->connect_error) {
     $errorMsg = "Connection failed: " . $conn->connect_error;
     echo($errorMsg);
-    $success = false;
+    exit;
+    
 } else {
     if ($cate == "order") {
         $stmt = mysqli_prepare($conn, "SELECT $columns FROM keyboarder.$table_name WHERE $table_name" . "_id = $specificid");

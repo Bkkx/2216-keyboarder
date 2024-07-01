@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if ($_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit;
+}
+
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 include "components/essential.inc.php";
 include "components/nav.inc.php";
