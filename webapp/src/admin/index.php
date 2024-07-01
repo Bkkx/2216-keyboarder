@@ -35,11 +35,11 @@ if ($_SESSION['role'] !== 'admin') {
                 <div  id="card-deck" class="product-category row d-flex justify-content-center row-cols-3 g-3 mt-1">
                     <!-- Content goes here -->
                     <div class="card_container col-lg-3 col-md-6 col-sm-6 col-12">
-                        <a href="userlist.php">
+                        <a href="customerlist.php">
                             <div class="card h-100">
                                 <img class="card-img-top" src="images//home_card_user.jpg" alt="Card image cap" loading="lazy">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center">User List</h5>
+                                    <h5 class="card-title text-center">Customer List</h5>
                                 </div>
                             </div>
                         </a>

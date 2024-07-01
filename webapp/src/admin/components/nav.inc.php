@@ -16,7 +16,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Manage List</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                            <li><a class="dropdown-item" href="userlist.php">User List</a></li>
+                            <li><a class="dropdown-item" href="customerlist.php">Customer List</a></li>
                             <li><a class="dropdown-item" href="orderlist.php">Order List</a></li>
                             <li><a class="dropdown-item" href="productlist.php">Product List</a></li>
                         </ul>
